@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <title>PruTAN</title>
+   <link rel="icon" type="image/x-icon" href="favicon.ico">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;500;700&family=Lexend:wght@100;300;500;700&display=swap"
+      rel="stylesheet" />
+   <link rel="stylesheet" href="assets/css/styles.css" />
+   <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body translate="no">
+   <div id="home-content">
+      <header class="py-10">
+         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <nav class="relative z-50 flex justify-between">
+               <div class="flex items-center md:gap-x-12">
+                  <a aria-label="Home" href="#">
+                     <a aria-current="page" href="/"
+                        class="router-link-active router-link-exact-active inline-flex items-center justify-center py-2 font-semibold transition whitespace-nowrap focus:outline-none text-secondary hover:text-secondaryDark focus-visible:text-secondaryDark rounded px-4 tracking-wide !font-bold !text-secondaryDark hover:bg-primaryDark focus-visible:bg-primaryDark">
+                        <span class="inline-flex items-center justify-center text-lg text-gray-500 whitespace-nowrap">
+                           <img src="assets/images/Prutan_110124-01.svg"
+                              width="30px" height="30px" /> PruTAN
+                        </span>
+                     </a>
+                  </a>
+                  <div class="hidden md:flex md:gap-x-6">
+                     <a class="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                        href="#features">Features</a>
+                     <a class="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                        href="#capabilities">Capabilities</a>
+                     <a class="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                        href="#testimonials">Testimonials</a>
+                     <a class="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                        href="#plans">Plans</a>
+                  </div>
+               </div>
+               <div class="flex items-center gap-x-5 md:gap-x-8">
+                  <div class="hidden md:block"></div>
+                  <a class="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600"
+                     color="blue" variant="solid" href="https://app.prutan.com/prutan/ui/" target="_blank">
+                     <span>Get started <span class="hidden lg:inline">today</span></span>
+                  </a>
+                  <div class="-mr-1 md:hidden">
+                     <div data-headlessui-state="">
+
+                        <button onclick="toggleMenu()" class="relative z-10 flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none" aria-label="Toggle Navigation" type="button" aria-expanded="false" data-headlessui-state="" id="headlessui-popover-button-:Rbplla:">
+                           <svg id="menuIcon" aria-hidden="true" class="h-3.5 w-3.5 overflow-visible stroke-slate-700" fill="none" stroke-width="2" stroke-linecap="round">
+                               <path id="menuClosed" d="M0 1H14M0 7H14M0 13H14" class="origin-center transition"></path>
+                               <path id="menuOpen" d="M2 2L12 12M12 2L2 12" class="origin-center transition" style="display: none;"></path>
+                           </svg>
+                       </button>
+                     </div>
+                     <div class="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5 hidden" id="menu" tabindex="-1" data-headlessui-state="open">
+                        <a class="block w-full p-2" data-headlessui-state="open" href="#features">Features</a>
+                        <a class="block w-full p-2" data-headlessui-state="open" href="#capabilities">Capabilities</a>
+                        <a class="block w-full p-2" data-headlessui-state="open" href="#testimonials">Testimonials</a>
+                        <a class="block w-full p-2" data-headlessui-state="open" href="#plans">Plans</a>
+
+                    </div>
+                     <div
+                        style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none">
+                     </div>
+                  </div>
+               </div>
+            </nav>
+         </div>
+      </header>
+      <!-- Main -->
+      <main>
+         <div class="mx-auto max-w-7xl text-center px-4 sm:px-6 lg:px-8 pb-40 pt-20 lg:pt-40">
+            <h1 class="mx-auto max-w-4xl font-display text-6xl sm:text-6xl font-medium tracking-tighter text-slate-950">
+               PruTAN <br/>
+               <span class="relative whitespace-nowrap text-blue-600">
+                  <svg aria-hidden="true" viewBox="0 0 418 42"
+                     class="absolute left-0 top-2/3 h-[0.58em] w-full fill-blue-300/70" preserveAspectRatio="none">
+                     <path
+                        d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z">
+                     </path>
+                  </svg>
+                  <span class="text-3xl sm:text-5xl tracking-tighter relative">Payments Test Automation</span>
+               </span> <br/>
+               <!-- or small businesses. -->
+            </h1>
+            <div class="mt-3 text-3xl sm:text-5xl tracking-tighter text-slate-700">powered by Artificial Intelligence</div>
+         </div>
+
+         <section id="cta" class="relative overflow-hidden bg-blue-600 py-16">
+            <div class="mx-auto px-4 sm:px-6 lg:px-8 relative">
+               <div class="mx-auto text-center">
+                  <div class="mb-12 flex justify-center tracking-tight text-white">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="92" height="92" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bot"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
+                  </div>
+                  <h2 class="w-full font-display tracking-tighter text-slate-100 text-3xl sm:text-5xl">🚀 Accelerate with generative AI</h2>
+                  <p class="mt-2 text-2xl text-white">70% Faster, 95% More Coverage</p>
+
+                  <div class="mt-16 px-12 mx-auto max-w-xl">
+                     <ul class="order-last mt-3 flex flex-col gap-y-3 text-sm text-white">
+                        <li class="flex text-md md:text-lg text-left tracking-tight">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-green-300">
+                              <path d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z" stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Uncovers 95% more edge cases than humans</span>
+                        </li>
+                        <li class="flex text-md md:text-lg text-left tracking-tight">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-green-300">
+                              <path d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z" stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Simulates real user behavior from anonymized data</span>
+                        </li>
+                        <li class="flex text-md md:text-lg text-left tracking-tight">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-green-300">
+                              <path d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z" stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Stress-tests with dynamic, AI-generated payloads</span>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </section>
+
+         <section id="features" aria-label="Features for running your books"
+            class="relative overflow-hidden bg-blue-600 pb-28 pt-20 sm:py-16">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+               <div class="video-container max-w-2xl md:mx-auto md:text-center xl:max-w-none">
+                  <video id="videoPlayer" controls poster="assets/prutan-poster.png">
+                     <source class="rounded-lg shadow" src="assets/prutan-intro-v2.mp4" type="video/mp4" prutan-poster.png>
+                     Your browser does not support the video tag.
+                   </video>
+               </div>
+               <div class="max-w-2xl md:mx-auto md:text-center xl:max-w-none mt-44">
+                  <h2 class="font-display text-3xl tracking-tight text-white sm:text-4xl md:text-5xl">Everything you
+                     need to test your API's.</h2>
+                  <p class="mt-6 text-lg tracking-tight text-blue-100">Different modules to serve your requirements
+                     seamlessly.</p>
+               </div>
+               <div
+                  class="mt-16 grid grid-cols-1 items-center gap-y-2 pt-10 sm:gap-y-6 md:mt-20 lg:grid-cols-12 lg:pt-0">
+                  <div class="-mx-4 flex overflow-x-auto pb-4 sm:mx-0 sm:overflow-visible sm:pb-0 lg:col-span-5">
+                     <div
+                        class="relative z-10 flex gap-x-4 whitespace-nowrap px-4 sm:mx-auto sm:px-0 lg:mx-0 lg:block lg:gap-x-0 lg:gap-y-1 lg:whitespace-normal"
+                        role="tablist" aria-orientation="vertical">
+                        <div onclick="renderFeatureImage('featureAPI')" style="background-color: hsla(0,0%,100%,.1);"
+                           class="group relative rounded-full px-4 py-1 lg:rounded-l-xl lg:rounded-r-none lg:p-6 bg-white lg:bg-white/10 lg:ring-1 lg:ring-inset lg:ring-white/10">
+                           <h3>
+                              <button
+                                 class="font-display text-lg ui-not-focus-visible:outline-none text-white"
+                                 id="headlessui-tabs-tab-:R2baalla:" role="tab" type="button" aria-selected="true"
+                                 tabindex="0" data-headlessui-state="selected"
+                                 aria-controls="headlessui-tabs-panel-:Rdaalla:">
+                                 <span
+                                    class="absolute inset-0 rounded-full lg:rounded-l-xl lg:rounded-r-none"></span>API
+                              </button>
+                           </h3>
+                           <p class="mt-2 hidden text-sm lg:block text-white">
+                              The API platform is your go-to protocol for making REST or ISO requests,
+                              validating responses, and leveraging cutting-edge generative AI capabilities.
+                           </p>
+                        </div>
+                        <div onclick="renderFeatureImage('featureHostbox')"
+                           class="group relative rounded-full px-4 py-1 lg:rounded-l-xl lg:rounded-r-none lg:p-6 hover:bg-white/10 lg:hover:bg-white/5">
+                           <h3>
+                              <button
+                                 class="font-display text-lg ui-not-focus-visible:outline-none text-white"
+                                 id="headlessui-tabs-tab-:R2jaalla:" role="tab" type="button" aria-selected="false"
+                                 tabindex="-1" data-headlessui-state="" aria-controls="headlessui-tabs-panel-:Rlaalla:">
+                                 <span
+                                    class="absolute inset-0 rounded-full lg:rounded-l-xl lg:rounded-r-none"></span>Hostbox
+                              </button>
+                           </h3>
+                           <p class="mt-2 hidden text-sm lg:block text-blue-100 group-hover:text-white">Hostbox offers a dynamic API simulation for REST and ISO requests,
+                           with an intelligent rule engine that adapts in real-time based on AI-driven rules.</p>
+                        </div>
+                        <div onclick="renderFeatureImage('featureInterceptor')"
+                           class="group relative rounded-full px-4 py-1 lg:rounded-l-xl lg:rounded-r-none lg:p-6 hover:bg-white/10 lg:hover:bg-white/5">
+                           <h3>
+                              <button
+                                 class="font-display text-lg ui-not-focus-visible:outline-none text-white"
+                                 id="headlessui-tabs-tab-:R2raalla:" role="tab" type="button" aria-selected="false"
+                                 tabindex="-1" data-headlessui-state="" aria-controls="headlessui-tabs-panel-:Rtaalla:">
+                                 <span
+                                    class="absolute inset-0 rounded-full lg:rounded-l-xl lg:rounded-r-none"></span>Interceptor
+                              </button>
+                           </h3>
+                           <p class="mt-2 hidden text-sm lg:block text-blue-100 group-hover:text-white">Interceptor
+                              intercepts a request and after modification it forward the requests for further execution.
+                           </p>
+                        </div>
+                        <div onclick="renderFeatureImage('featureStress')"
+                           class="group relative rounded-full px-4 py-1 lg:rounded-l-xl lg:rounded-r-none lg:p-6 hover:bg-white/10 lg:hover:bg-white/5">
+                           <h3>
+                              <button
+                                 class="font-display text-lg ui-not-focus-visible:outline-none text-white"
+                                 id="headlessui-tabs-tab-:R33aalla:" role="tab" type="button" aria-selected="false"
+                                 tabindex="-1" data-headlessui-state=""
+                                 aria-controls="headlessui-tabs-panel-:R15aalla:">
+                                 <span
+                                    class="absolute inset-0 rounded-full lg:rounded-l-xl lg:rounded-r-none"></span>Stress
+                              </button>
+                           </h3>
+                           <p class="mt-2 hidden text-sm lg:block text-blue-100 group-hover:text-white">
+                              Now identify the breaking point or the performance limits of the software under heavy
+                              loads and to determine how it behaves under extreme conditions.
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="lg:col-span-7 ml-5" id="featureImage">
+                     <div id="featureAPI" role="tabpanel" tabindex="0" data-headlessui-state="selected"
+                        aria-labelledby="headlessui-tabs-tab-:R2baalla:">
+                        <div
+                           class="mt-10 w-[45rem] overflow-hidden rounded-xl bg-slate-50 shadow-xl shadow-blue-900/20 sm:w-auto lg:mt-0 lg:w-[67.8125rem]">
+                           <img alt="" fetchpriority="high" width="2174" height="1464" decoding="async" data-nimg="1"
+                              class="w-full" style="color:transparent"
+                              sizes="(min-width: 1024px) 67.8125rem, (min-width: 640px) 100vw, 45rem"
+                              src="assets/images/API.png" />
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="secondary-features" aria-label="Features for simplifying everyday business tasks"
+            class="pb-14 pt-20 sm:pb-20 sm:pt-32 lg:pb-32">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+               <div class="mx-auto max-w-2xl md:text-center">
+                  <h2 class="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">Simplifying API Automation
+                     Testing</h2>
+                  <p class="mt-4 text-lg tracking-tight text-slate-700">PruTAN will provide you all tools which will be
+                     needed for testings.</p>
+               </div>
+               <div class="mt-10 lg:block">
+                  <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
+                     <div class="relative opacity-75 hover:opacity-100">
+                        <div class="w-9 rounded-lg">
+                           <svg aria-hidden="true" width="2.25em" height="2.25em" viewBox="0 0 24 24" fill="none">
+                              <path _ngcontent-cte-c27="" fill="currentColor"
+                                 d="M12.731 2.751 17.666 5.6a2.138 2.138 0 1 1 2.07 3.548l-.015.003v5.7a2.14 2.14 0 1 1-2.098 3.502l-.002-.002-4.905 2.832a2.14 2.14 0 1 1-4.079.054l-.004.015-4.941-2.844a2.14 2.14 0 1 1-2.067-3.556l.015-.003V9.15a2.14 2.14 0 1 1 1.58-3.926l-.01-.005c.184.106.342.231.479.376l.001.001 4.938-2.85a2.14 2.14 0 1 1 4.096.021l.004-.015zm-.515.877a.766.766 0 0 1-.057.057l-.001.001 6.461 11.19c.026-.009.056-.016.082-.023V9.146a2.14 2.14 0 0 1-1.555-2.603l-.003.015.019-.072zm-3.015.059-.06-.06-4.946 2.852A2.137 2.137 0 0 1 2.749 9.12l-.015.004-.076.021v5.708l.084.023 6.461-11.19zm2.076.507a2.164 2.164 0 0 1-1.207-.004l.015.004-6.46 11.189c.286.276.496.629.597 1.026l.003.015h12.911c.102-.413.313-.768.599-1.043l.001-.001L11.28 4.194zm.986 16.227 4.917-2.838a1.748 1.748 0 0 1-.038-.142H4.222l-.021.083 4.939 2.852c.39-.403.936-.653 1.54-.653.626 0 1.189.268 1.581.696l.001.002z">
+                              </path>
+                           </svg>
+                        </div>
+                        <h3 class="mt-6 text-blue-600">Hostbox</h3>
+                        <p class="mt-2 mb-6 font-display text-xl text-slate-900">Mock APIs even when it is not ready to
+                           enhance the development process, reduce errors, and promote successful API implementations.
+                        </p>
+                        <ul class="checkmark">
+                           <li>
+                              Simulate scenario based Rest or ISO APIs.
+                           </li>
+                           <li>
+                              Define custom responses, headers, and payloads for various API endpoints.
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="relative mt-10 lg:mt-0 opacity-75 hover:opacity-100">
+                        <div class="w-9 rounded-lg">
+                           <svg width="2.25em" height="2.25em" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                              class="lucide lucide-webhook">
+                              <path _ngcontent-fsd-c27=""
+                                 d="M18 16.98h-5.99c-1.1 0-1.95.94-2.48 1.9A4 4 0 0 1 2 17c.01-.7.2-1.4.57-2"></path>
+                              <path _ngcontent-fsd-c27="" d="m6 17 3.13-5.78c.53-.97.1-2.18-.5-3.1a4 4 0 1 1 6.89-4.06">
+                              </path>
+                              <path _ngcontent-fsd-c27="" d="m12 6 3.13 5.73C15.66 12.7 16.9 13 18 13a4 4 0 0 1 0 8">
+                              </path>
+                           </svg>
+                        </div>
+                        <h3 class="mt-6 text-blue-600">Interceptor</h3>
+                        <p class="mt-2 mb-6 font-display text-xl text-slate-900">Intercept a Request and dynamically
+                           modify using custom rules.</p>
+                        <ul class="checkmark">
+                           <li>Dynamic interception of API requests & responses and further modification.</li>
+                           <li>
+                              Use AI rules and conditionally modify requests & responses in real-time.
+                           </li>
+                        </ul>
+                     </div>
+                     <div class="relative mt-10 lg:mt-0 opacity-75 hover:opacity-100">
+                        <div class="w-9 rounded-lg">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="2.25em" height="2.25em" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round">
+                              <path _ngcontent-fsd-c27="" d="m12 14 4-4"></path>
+                              <path _ngcontent-fsd-c27="" d="M3.34 19a10 10 0 1 1 17.32 0"></path>
+                           </svg>
+                        </div>
+                        <h3 class="mt-6 text-blue-600">Stress</h3>
+                        <p class="mt-2 mb-6 font-display text-xl text-slate-900">Ensuring systems resilience through
+                           comprehensive stress testing.</p>
+                        <ul class="checkmark">
+                           <li>Now, Know your application's capabilities through Stress testing .</li>
+                           <li>Pinpoint performance bottlenecks, hardware/software faults, and other issues that may
+                              arise during peak usage.</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+
+         <section id="capabilities"
+            style="background-image: url(background-faqs.55d2e36a.jpg);background-size: cover; background-position: center; background-repeat: no-repeat;"
+            aria-label="Capabilities like domain accessing, security & Integration"
+            class="relative overflow-hidden pb-28 pt-20 sm:py-32">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+               <div class="mx-auto max-w-2xl md:text-center">
+                  <h2 class="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">Explore Capabilities of
+                     PruTAN.</h2>
+                  <p class="mt-4 text-lg tracking-tight text-slate-700">PruTAN offers you different domains to access,
+                     security checks & integrations like Jira, Teams etc.</p>
+               </div>
+               <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-8" role="tablist" aria-orientation="horizontal">
+                  <div class="relative">
+                     <h3 class="mt-6 text-blue-600">Domain</h3>
+                     <p class="mt-2 text-slate-600">
+                        Users will be able to seamlessly connect with diverse domains, encompassing sectors such as
+                        e-commerce and the expansive world of payments, which includes integral systems like ATM, POS,
+                        Banking, UPI etc.
+                        <br />
+                     </p>
+                  </div>
+                  <div class="relative">
+                     <h3 class="mt-6 text-blue-600">Security</h3>
+                     <p class="mt-2 text-slate-600">
+                        Our platform ensures secure communication through HTTPS and prioritizes infrastructure security
+                        by rigorously monitoring Docker image vulnerabilities and strengthening SSL implementations for
+                        data
+                        encryption and protection.
+                     </p>
+                  </div>
+                  <div class="relative">
+                     <h3 class="mt-6 text-blue-600">Integrations</h3>
+                     <p class="mt-2 text-slate-600">
+                        We've integrated our app with communication platforms like Teams, Jira, Slack, WhatsApp, and
+                        Email for enhanced collaboration.
+                     </p>
+                  </div>
+               </div>
+               <!-- </div> -->
+            </div>
+         </section>
+         <section id="cta" class="relative overflow-hidden bg-blue-600 py-32">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+               <div class="mx-auto max-w-lg text-center">
+                  <h2 class="font-display text-3xl tracking-tight text-white sm:text-4xl">Get started today</h2>
+                  <p class="mt-4 text-lg tracking-tight text-white">It's time to take control of your testing &
+                     automation. Embrace our software and revolutionize your testings like never before</p>
+                  <a class="inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-white text-slate-900 hover:bg-blue-50 active:bg-blue-200 active:text-slate-600 mt-10"
+                     color="white" variant="solid" href="https://app.prutan.com/prutan/ui/" target="_blank">
+                     Get Free Trial
+                  </a>
+               </div>
+            </div>
+         </section>
+         <section id="testimonials" aria-label="What our customers are saying" class="bg-slate-50 py-20 sm:py-32">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+               <div class="mx-auto max-w-2xl md:text-center">
+                  <h2 class="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">Loved by businesses
+                     worldwide.</h2>
+                  <p class="mt-4 text-lg tracking-tight text-slate-700">Our software is so simple that people can’t help
+                     but fall in love with it. Simplicity is easy when you just skip tons of mission-critical features.
+                  </p>
+               </div>
+               <ul style="display: none;" role="list"
+                  class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3">
+                  <li>
+                     <ul role="list" class="flex flex-col gap-y-6 sm:gap-y-8">
+                        <li>
+                           <figure class="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                              <blockquote class="relative">
+                                 <p class="text-lg tracking-tight text-slate-900">PruTAN is so easy to use I can’t help
+                                    but wonder if it’s really doing the testings i wanted to do.</p>
+                              </blockquote>
+                              <figcaption
+                                 class="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
+                                 <div>
+                                    <div class="font-display text-base text-slate-900">Sheryl Berge</div>
+                                    <div class="mt-1 text-sm text-slate-500">CEO at Lynch LLC</div>
+                                 </div>
+                                 <div class="overflow-hidden rounded-full bg-slate-50">
+                                    <img class="testimonial-images" src="assets/images/employee.jpg" alt="Img" />
+                                 </div>
+                              </figcaption>
+                           </figure>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <ul role="list" class="flex flex-col gap-y-6 sm:gap-y-8">
+                        <li>
+                           <figure class="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                              <blockquote class="relative">
+                                 <p class="text-lg tracking-tight text-slate-900">
+                                    The best part about PruTAN is that , It also let us do ISO API simulation apart from
+                                    Rest API which is not common in this field. Looking forward to use it extensively.
+                                 </p>
+                              </blockquote>
+                              <figcaption
+                                 class="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
+                                 <div>
+                                    <div class="font-display text-base text-slate-900">Leland Kiehn</div>
+                                    <div class="mt-1 text-sm text-slate-500">Founder of Kiehn and Sons</div>
+                                 </div>
+                                 <div class="overflow-hidden rounded-full bg-slate-50">
+                                    <img class="testimonial-images" src="assets/images/employee.jpg" alt="Img" />
+                                 </div>
+                              </figcaption>
+                           </figure>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <ul role="list" class="flex flex-col gap-y-6 sm:gap-y-8">
+                        <li>
+                           <figure class="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                              <blockquote class="relative">
+                                 <!-- The Stress feature implemented by your app supply company has been instrumental in validating our system's scalability and performance thresholds. Its meticulous stress testing capabilities have fortified our confidence in handling peak loads, ensuring uninterrupted service delivery to our users. -->
+                                 <p class="text-lg tracking-tight text-slate-900">
+                                    PruTAN's meticulous stress testing capabilities have fortified our confidence in
+                                    handling peak loads, ensuring uninterrupted service delivery to our users.
+                                 </p>
+                              </blockquote>
+                              <figcaption
+                                 class="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
+                                 <div>
+                                    <div class="font-display text-base text-slate-900">Peter Renolds</div>
+                                    <div class="mt-1 text-sm text-slate-500">Founder of West Inc</div>
+                                 </div>
+                                 <div class="overflow-hidden rounded-full bg-slate-50">
+                                    <img class="testimonial-images" src="assets/images/employee.jpg" alt="Img" />
+                                 </div>
+                              </figcaption>
+                           </figure>
+                        </li>
+                     </ul>
+                  </li>
+               </ul>
+            </div>
+         </section>
+         <section id="plans" aria-label="Pricing" class="bg-slate-900 py-20 sm:py-32">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+               <div class="md:text-center">
+                  <h2 class="font-display text-3xl tracking-tight text-white sm:text-4xl">
+                     <span class="relative whitespace-nowrap">
+                        <svg aria-hidden="true" viewBox="0 0 281 40" preserveAspectRatio="none"
+                           class="absolute left-0 top-1/2 h-[1em] w-full fill-blue-400">
+                           <path fill-rule="evenodd" clip-rule="evenodd"
+                              d="M240.172 22.994c-8.007 1.246-15.477 2.23-31.26 4.114-18.506 2.21-26.323 2.977-34.487 3.386-2.971.149-3.727.324-6.566 1.523-15.124 6.388-43.775 9.404-69.425 7.31-26.207-2.14-50.986-7.103-78-15.624C10.912 20.7.988 16.143.734 14.657c-.066-.381.043-.344 1.324.456 10.423 6.506 49.649 16.322 77.8 19.468 23.708 2.65 38.249 2.95 55.821 1.156 9.407-.962 24.451-3.773 25.101-4.692.074-.104.053-.155-.058-.135-1.062.195-13.863-.271-18.848-.687-16.681-1.389-28.722-4.345-38.142-9.364-15.294-8.15-7.298-19.232 14.802-20.514 16.095-.934 32.793 1.517 47.423 6.96 13.524 5.033 17.942 12.326 11.463 18.922l-.859.874.697-.006c2.681-.026 15.304-1.302 29.208-2.953 25.845-3.07 35.659-4.519 54.027-7.978 9.863-1.858 11.021-2.048 13.055-2.145a61.901 61.901 0 0 0 4.506-.417c1.891-.259 2.151-.267 1.543-.047-.402.145-2.33.913-4.285 1.707-4.635 1.882-5.202 2.07-8.736 2.903-3.414.805-19.773 3.797-26.404 4.829Zm40.321-9.93c.1-.066.231-.085.29-.041.059.043-.024.096-.183.119-.177.024-.219-.007-.107-.079ZM172.299 26.22c9.364-6.058 5.161-12.039-12.304-17.51-11.656-3.653-23.145-5.47-35.243-5.576-22.552-.198-33.577 7.462-21.321 14.814 12.012 7.205 32.994 10.557 61.531 9.831 4.563-.116 5.372-.288 7.337-1.559Z">
+                           </path>
+                        </svg>
+                        <span class="relative">Simple plan,</span>
+                     </span>
+                     for everyone.
+                  </h2>
+                  <p class="mt-4 text-lg text-slate-400">It doesn’t matter what size your business is, our software
+                     will work well for you.</p>
+               </div>
+               <div
+                  class="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
+                  <section class="flex flex-col rounded-3xl px-6 sm:px-8 lg:py-8">
+                     <h3 class="mt-5 font-display text-lg text-white">Starter</h3>
+                     <p class="mt-2 text-base text-slate-400">For individuals experimenting or shipping smaller projects.</p>
+                     <!-- <p class="order-first font-display text-5xl font-light tracking-tight text-white">FREE</p> -->
+                     <ul role="list" class="order-last mt-10 flex flex-col gap-y-3 text-sm text-slate-200">
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">5000 credits</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">API Module</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">HostBox Simulator</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Message Interceptor</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Message Transformer</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Performance Automation</span>
+                        </li>
+                     </ul>
+                     <a class="group inline-flex ring-1 items-center justify-center rounded-full py-2 px-4 text-sm focus:outline-none ring-slate-700 text-white hover:ring-slate-500 active:ring-slate-700 active:text-slate-400 focus-visible:outline-white mt-8"
+                        variant="outline" color="white" aria-label="Get started with the Starter plan for $9" href="https://app.prutan.com/prutan/ui/" target="_blank">
+                        Get started
+                     </a>
+                  </section>
+                  <section class="flex flex-col rounded-3xl px-6 sm:px-8 bg-blue-600 py-8">
+                     <h3 class="mt-5 font-display text-lg text-white">Professional</h3>
+                     <p class="mt-2 text-base text-white">Perfect for small / medium sized businesses.</p>
+                     <!-- <p class="order-first font-display text-5xl font-light tracking-tight text-white">$150<span class="text-lg font-light tracking-tight text-white"> / month</span></p> -->
+                     <ul role="list" class="order-last mt-10 flex flex-col gap-y-3 text-sm text-white">
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-white">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Everything in free</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-white">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">100000 credits</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-white">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Access to PruTAN market place</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-white">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Priority e-mail and chat support</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-white">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Centralized Team Management</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-white">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">3<sup>rd</sup> party integration <sup>*</sup></span>
+                        </li>
+                     </ul>
+                     <a class="group inline-flex ring-1 items-center justify-center rounded-full py-2 px-4 text-sm focus:outline-none ring-slate-700 text-white hover:ring-slate-500 active:ring-slate-700 active:text-slate-400 focus-visible:outline-white mt-8"
+                     href="https://app.prutan.com/prutan/ui/" target="_blank"
+                        variant="solid" color="white" aria-label="Get started with the Small business plan for $15">
+                        Get started
+                     </a>
+                  </section>
+                  <section class="flex flex-col rounded-3xl px-6 sm:px-8 lg:py-8">
+                     <h3 class="mt-5 font-display text-lg text-white">Enterprise</h3>
+                     <p class="mt-2 text-base text-slate-400">For organizations with complex security, support, and performance needs.</p>
+                     <!-- <p class="order-first font-display text-5xl font-light tracking-tight text-white"><svg class="inline" xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span class="text-lg font-light tracking-tight text-white"> custom pricing</span></p> -->
+                     <ul role="list" class="order-last mt-10 flex flex-col gap-y-3 text-sm text-slate-200">
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Everything in professional</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Unlimited credits</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">On-premise deployment</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">On-Call support</span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">Free user onboarding training <sup>**</sup></span>
+                        </li>
+                        <li class="flex">
+                           <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-slate-400">
+                              <path
+                                 d="M9.307 12.248a.75.75 0 1 0-1.114 1.004l1.114-1.004ZM11 15.25l-.557.502a.75.75 0 0 0 1.15-.043L11 15.25Zm4.844-5.041a.75.75 0 0 0-1.188-.918l1.188.918Zm-7.651 3.043 2.25 2.5 1.114-1.004-2.25-2.5-1.114 1.004Zm3.4 2.457 4.25-5.5-1.187-.918-4.25 5.5 1.188.918Z"
+                                 stroke-width="0"></path>
+                              <circle cx="12" cy="12" r="8.25" fill="none" stroke-width="1.5" stroke-linecap="round"
+                                 stroke-linejoin="round"></circle>
+                           </svg>
+                           <span class="ml-4">On-demand trained resources <sup>***</sup></span>
+                        </li>
+                     </ul>
+                     <a class="group inline-flex ring-1 items-center justify-center rounded-full py-2 px-4 text-sm focus:outline-none ring-slate-700 text-white hover:ring-slate-500 active:ring-slate-700 active:text-slate-400 focus-visible:outline-white mt-8"
+                     href="https://app.prutan.com/prutan/ui/" target="_blank"
+                        variant="outline" color="white" aria-label="Get started with the Enterprise plan for $39">
+                        Get started
+                     </a>
+                  </section>
+               </div>
+               <div class="mt-5 font-display text-sm text-white">
+                  <p><em>* Integration with Slack, JIRA, WhatsApp, Email, Microsoft Teams.</em></p>
+                  <p><em>** Training is provided online to get you quickly started.</em></p>
+                  <p><em>*** Hire our trained and vetted resources to scale up quickly.</em></p>
+               </div>
+            </div>
+         </section>
+         <section id="faq" aria-labelledby="faq-title" class="relative overflow-hidden bg-slate-50 py-20 sm:py-32">
+            <img alt="" loading="lazy" width="1558" height="946" decoding="async" data-nimg="1"
+               class="absolute left-1/2 top-0 max-w-none -translate-y-1/4 translate-x-[-30%]" style="color:transparent"
+               src="assets/images/background-faqs.55d2e36a.jpg" />
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
+               <div class="mx-auto max-w-2xl lg:mx-0">
+                  <h2 id="faq-title" class="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">Frequently
+                     asked questions</h2>
+                  <p class="mt-4 text-lg tracking-tight text-slate-700">If you can’t find what you’re looking for, email
+                     our support team and we'll do our best to assist you as soon as possible..</p>
+               </div>
+               <ul role="list" class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3">
+                  <li>
+                     <ul role="list" class="flex flex-col gap-y-8">
+                        <li>
+                           <h3 class="font-display text-lg leading-7 text-slate-900">Can I pay for my subscription via
+                              purchase order?</h3>
+                           <p class="mt-4 text-base text-slate-700">
+                              For inquiries regarding payment, please contact us directly at info@prutan.com.
+                           </p>
+                        </li>
+                        <li>
+                           <h3 class="font-display text-lg leading-7 text-slate-900">Does PruTAN provide on-premise
+                              hosting ?</h3>
+                           <p class="mt-4 text-base text-slate-700">Yes, PruTAN offers cloud hosting as well as,
+                              on-premise hosting.</p>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <ul role="list" class="flex flex-col gap-y-8">
+                        <li>
+                           <h3 class="font-display text-lg leading-7 text-slate-900">How do you analyze performance?
+                           </h3>
+                           <p class="mt-4 text-base text-slate-700">
+                              We offer detailed analysis utilizing key parameters such as Tpms, Latency, and Response
+                              Time etc. for in-depth evaluation.
+                           </p>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <ul role="list" class="flex flex-col gap-y-8">
+                        <li>
+                           <h3 class="font-display text-lg leading-7 text-slate-900">I lost my password, how do I get
+                              into my account?</h3>
+                           <p class="mt-4 text-base text-slate-700">Please click "Forgot Password," provide the
+                              necessary details, and proceed to reset your account password.</p>
+                        </li>
+                     </ul>
+                  </li>
+               </ul>
+            </div>
+         </section>
+      </main>
+      <!-- footer -->
+      <footer class="bg-slate-50">
+         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="py-16">
+               <!-- <svg aria-hidden="true" viewBox="0 0 109 40" class="mx-auto h-10 w-auto"> -->
+               <div class="flex justify-center">
+                  <a aria-current="page"
+                     class="mx-auto router-link-active router-link-exact-active inline-flex items-center justify-center py-2 font-semibold transition whitespace-nowrap focus:outline-none text-secondary hover:text-secondaryDark focus-visible:text-secondaryDark rounded px-4 tracking-wide !font-bold !text-secondaryDark hover:bg-primaryDark focus-visible:bg-primaryDark">
+                     <span class="inline-flex items-center justify-center text-lg text-gray-500 whitespace-nowrap">
+                        <img src="assets/images/Prutan_110124-01.svg"
+                           width="30px" height="30px" /> pruTAN
+                     </span>
+                  </a>
+               </div>
+               <!-- </svg> -->
+               <nav class="mt-10 text-sm" aria-label="quick links">
+                  <div class="-my-1 flex justify-center gap-x-6">
+                     <a class="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                        href="#features">Features</a>
+                     <a class="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                        href="#capabilities">Capabilities</a>
+                     <a class="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                        href="#testimonials">Testimonials</a>
+                     <a class="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900"
+                        href="#plans">Plans</a>
+                  </div>
+               </nav>
+            </div>
+            <div
+               class="flex flex-col items-center border-t border-slate-400/10 py-10 sm:flex-row-reverse sm:justify-between">
+               <div class="flex gap-x-6">
+                  <!-- <a class="group" aria-label="pruTAN on Twitter" href="https://twitter.com">
+                     <svg aria-hidden="true" class="h-6 w-6 fill-slate-500 group-hover:fill-slate-700">
+                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0 0 22 5.92a8.19 8.19 0 0 1-2.357.646 4.118 4.118 0 0 0 1.804-2.27 8.224 8.224 0 0 1-2.605.996 4.107 4.107 0 0 0-6.993 3.743 11.65 11.65 0 0 1-8.457-4.287 4.106 4.106 0 0 0 1.27 5.477A4.073 4.073 0 0 1 2.8 9.713v.052a4.105 4.105 0 0 0 3.292 4.022 4.093 4.093 0 0 1-1.853.07 4.108 4.108 0 0 0 3.834 2.85A8.233 8.233 0 0 1 2 18.407a11.615 11.615 0 0 0 6.29 1.84"></path>
+                     </svg>
+                     </a> -->
+                  <!-- <a class="group" aria-label="pruTAN on GitHub" href="https://github.com">
+                     <svg aria-hidden="true" class="h-6 w-6 fill-slate-500 group-hover:fill-slate-700">
+                        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"></path>
+                     </svg>
+                     </a> -->
+               </div>
+               <p class="mt-6 text-sm text-slate-500 sm:mt-0">
+                  Copyright © 2024 pruTAN. All rights reserved.
+               </p>
+            </div>
+         </div>
+      </footer>
+   </div>
+   <script>
+      document.addEventListener("DOMContentLoaded", function () {
+         // Get all the div elements with the class 'group'
+         const divs = document.querySelectorAll(".group");
+
+         divs.forEach(div => {
+            div.addEventListener("click", function () {
+               // Reset all divs to their original state and background color
+               divs.forEach(innerDiv => {
+                  innerDiv.setAttribute('data-headlessui-state', 'false');
+                  innerDiv.classList.remove('bg-white', 'lg:bg-white/10', 'lg:ring-1', 'lg:ring-inset', 'lg:ring-white/10');
+                  innerDiv.style.backgroundColor = '';  // Reset background color
+                  const button = innerDiv.querySelector('button');
+                  if (button) {
+                     button.classList.remove('text-blue-600', 'lg:text-white');
+                     button.classList.add('text-blue-100', 'lg:text-white');
+                  }
+               });
+
+               // Set the clicked div to selected and change its background color
+               div.setAttribute('data-headlessui-state', 'selected');
+               div.classList.add('bg-white', 'lg:bg-white/10', 'lg:ring-1', 'lg:ring-inset', 'lg:ring-white/10');
+               div.style.backgroundColor = 'hsla(0,0%,100%,.1)';  // Change background color for the selected div
+
+               const clickedButton = div.querySelector('button');
+               if (clickedButton) {
+                  clickedButton.classList.remove('text-blue-100', 'lg:text-white');
+                  clickedButton.classList.add('text-blue-600', 'lg:text-white');
+               }
+            });
+         });
+      });
+
+      function renderFeatureImage(moduleName) {
+
+         var module = moduleName.replace('feature', '');
+
+         var featureDiv = document.getElementById('featureImage');
+
+         if (featureDiv && featureDiv.querySelector('img')) {
+            featureDiv.querySelector('img').src = 'assets/images/' + module + ".png";
+         }
+      }
+
+   function toggleMenu() {
+      var menuIcon = document.getElementById('menuIcon');
+      var menuClosed = document.getElementById('menuClosed');
+      var menuOpen = document.getElementById('menuOpen');
+
+      var isExpanded = menuIcon.getAttribute('aria-expanded') === 'true';
+
+      // Toggle the aria-expanded attribute
+      menuIcon.setAttribute('aria-expanded', !isExpanded);
+
+      // Toggle the display of the SVG paths
+      menuClosed.style.display = isExpanded ? 'block' : 'none';
+      menuOpen.style.display = isExpanded ? 'none' : 'block';
+      menu.classList.toggle('hidden');
+
+      if (!isExpanded) {
+        document.addEventListener('click', closeMenuOutside);
+    } else {
+        document.removeEventListener('click', closeMenuOutside);
+    }
+   }
+   function closeMenuOutside(event) {
+    var menuIcon = document.getElementById('menuIcon');
+    var menuOpen = document.getElementById('menuOpen');
+    var menuClosed = document.getElementById('menuClosed');
+
+    if (event.target !== menuIcon && event.target !== menuOpen && event.target !== menuClosed) {
+        toggleMenu();
+    }
+   }
+   </script>
+</body>
+
+</html>

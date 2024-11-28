@@ -1,0 +1,8 @@
+fastapi[all]
+llama-index
+chromadb
+sqlalchemy
+pandas
+uvicorn
+mysql-connector-python
+
