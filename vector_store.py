@@ -438,6 +438,8 @@ class QdrantVectorStore:
         #     ],
         # )
 
+        # payloads = [payload for payload in payloads if payload.get("text") in texts]
+
         points = [
                 PointStruct(id=id, vector=v,
                             payload=doc)
@@ -476,7 +478,8 @@ class QdrantVectorStore:
 
         results = [{**i.payload, "score": i.score} for i in hits]
 
-        sorted_results = sorted(results, key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d %H:%M:%S.%f'),reverse=True)
+        sorted_results = sorted(results, key=lambda x: parse_date(x['date']),reverse=True)
+
 
         for hit in sorted_results:
             print(hit.get("guid"),"score:",hit.get('score'),"date:", hit.get('date'),'\n',"text:",hit.get('text'))
@@ -504,7 +507,8 @@ if __name__ == "__main__":
     # qdrant.add_vectors()
     # qdrant.search_vector("Cennox Chain Leeds GB")
     # qdrant.search_vector("PI323")
-    qdrant.search_vector('gaurav.kumar@gmailcom')
+    qdrant.search_vector('acct is 058010100083000')
+
 
 
 
