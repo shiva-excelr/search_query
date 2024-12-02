@@ -1,6 +1,13 @@
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import cos_sim
 
+from openai import OpenAI
+import os
+
+from dotenv import load_dotenv
+from tqdm import tqdm
+
+load_dotenv()
 
 model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
 
@@ -35,4 +42,39 @@ def ranked_scores(query_embedding,vector_embeddings, texts, query):
 
 
     return rearrange_texts
+
+class OpenAIEmbeddings:
+    def __init__(self):
+        self.model =  "text-embedding-3-small"
+        self. client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+    def generate_embeddings(self,texts):
+        """
+        Generate embeddings for a list of texts using OpenAI's embedding model.
+
+        :param texts: List of strings to generate embeddings for
+        :return: List of embedding vectors
+        """
+        # Use text-embedding-3-small for a balance of performance and cost
+        successful_embeddings = []
+        successful_texts = []
+        for index,text in enumerate(tqdm(texts)):
+            try:
+                response = self.client.embeddings.create(
+                    input=text,
+                    model=self.model)
+
+                # Extract the embedding vectors
+                # embeddings = [embed.embedding for embed in response.data]
+                embeddings = response.data[0].embedding
+                successful_embeddings.append(embeddings)
+                successful_texts.append(text)
+                print("index", index)
+
+            except Exception as e:
+                print(text)
+                print(f"An error occurred: {e}")
+                print("\n")
+                continue
+        return successful_embeddings, successful_texts
 
