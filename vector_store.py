@@ -300,9 +300,9 @@ class VectorStore:
 
 class QdrantVectorStore:
 
-    def __init__(self,embedding_dimension=1536):
+    def __init__(self,collection_name = "openaisearch",embedding_dimension=1536):
 
-        self.collection_name = "openaisearch"
+        self.collection_name = collection_name
 
         self.client = QdrantClient(url="http://localhost:6333", timeout=3000)
 
@@ -357,9 +357,9 @@ class QdrantVectorStore:
 
 
 
-                act_response = self.vector_store.convert_payload(transaction.get('response')if transaction.get('response') else None)
+                # act_response = self.vector_store.convert_payload(transaction.get('response')if transaction.get('response') else None)
 
-                # act_response = transaction.get("response")
+                act_response = transaction.get("response")
 
 
 
@@ -406,11 +406,9 @@ class QdrantVectorStore:
         #         print(e)
 
         #
-        # with open("texts2.json",'w') as f:
-        #     json.dump(vec,f)
 
 
-        # embeddings, texts = open_ai_embeds.generate_embeddings(vec)
+        # embeddings, texts = open_ai_embeds.generate_embeddings([i['text'] for i in payloads])
 
         # with open("embeds_without_preprocess.json",'w') as f:
         #     json.dump(embeddings,f)
@@ -418,10 +416,17 @@ class QdrantVectorStore:
         # with open("texts_without_preprocess.json", 'w') as f:
         #     json.dump(texts, f)
 
-        with open('texts.json', 'r') as f:
+        # with open('texts.json', 'r') as f:
+        #     texts = json.load(f)
+        #
+        # with open('embeds.json', 'r') as f:
+        #     embeddings = json.load(f)
+
+
+        with open('texts_without_preprocess.json', 'r') as f:
             texts = json.load(f)
 
-        with open('embeds.json', 'r') as f:
+        with open('embeds_without_preprocess.json', 'r') as f:
             embeddings = json.load(f)
 
 
@@ -440,7 +445,7 @@ class QdrantVectorStore:
             ]
 
         operation_info = self.client.upload_points(
-            collection_name="openaisearch",
+            collection_name=self.collection_name,
             wait=True,
             points=points,
         )
@@ -459,13 +464,22 @@ class QdrantVectorStore:
     def search_vector(self,query, top_k =10):
         query_embed,text =open_ai_embeds.generate_embeddings([query])
         hits = self.client.query_points(
-            collection_name="openaisearch",
+            collection_name=self.collection_name,
             query=query_embed[0],
             limit=top_k,
         ).points
 
-        for hit in hits:
-            print(hit.payload.get("guid"), "score:", hit.score,'\n',"text:",hit.payload.get('text'))
+        # results = []
+        # for i in hits:
+        #     i.payload["score"] = i.score
+        #     results.append(i.payload)
+
+        results = [{**i.payload, "score": i.score} for i in hits]
+
+        sorted_results = sorted(results, key=lambda x: datetime.strptime(x['date'], '%Y-%m-%d %H:%M:%S.%f'),reverse=True)
+
+        for hit in sorted_results:
+            print(hit.get("guid"),"score:",hit.get('score'),"date:", hit.get('date'),'\n',"text:",hit.get('text'))
             print("\n")
 
 
@@ -483,7 +497,9 @@ if __name__ == "__main__":
     # print(vector_store.search_vectors("refId is 804813039157"))
     # print(vector_store.search_vectors("AXIS0000058"))
 
+    # qdrant = QdrantVectorStore(collection_name='raw_data_search')
     qdrant = QdrantVectorStore()
+
     # qdrant.delete_collection()
     # qdrant.add_vectors()
     # qdrant.search_vector("Cennox Chain Leeds GB")
