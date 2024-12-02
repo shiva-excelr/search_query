@@ -10,17 +10,20 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 from qdrant_client import QdrantClient
+from tqdm import tqdm
 
 import chromadb
-from embeddings import generate_embedding
+from embeddings import generate_embedding, OpenAIEmbeddings
 from base_wrapper import  *
 from embeddings import ollama_ef
 
-from qdrant_client.models import Distance, VectorParams
+from qdrant_client.models import Distance, VectorParams, BinaryQuantization, BinaryQuantizationConfig
 from database import get_all_transactions
 from qdrant_client.models import PointStruct, MultiVectorConfig,MultiVectorComparator
 from utils import *
 
+
+open_ai_embeds = OpenAIEmbeddings()
 class Include(Enum):
     EMBEDDING = "embeddings"
     DOCUMENTS = "documents"
@@ -34,7 +37,7 @@ class VectorStore:
 
     def formatted_json_str(self,json_str,default=False):
         try:
-            if json_str and 'error' not in json_str.lower():
+            if json_str:
                 data = json.loads(json_str)
 
                 relevant_fields = []
@@ -95,17 +98,17 @@ class VectorStore:
             if isinstance(payload, str) and payload.strip().startswith(("<xml", "<?xml")):
                 preprocessed_xml = self.preprocess_xml(payload)
                 formatted_xml = self.formatted_xml_str(preprocessed_xml)
-                return None
+                return formatted_xml
             elif isinstance(payload, str) and payload.strip().startswith(("<iso")):
                 soup = BeautifulSoup(payload, 'xml')
                 values = [field['value'] for field in soup.find_all('field')]
                 text = '\n'.join(values)
-                return None
+                return text
             elif bool(re.compile(r'<[^>]+>').search(payload)):
                 soup = BeautifulSoup(payload, 'html.parser')
                 html_str = soup.get_text(strip=True, separator='\n')
                 html_str = "\n".join(dict.fromkeys(html_str.splitlines()))
-                return None
+                return html_str
 
             return self.formatted_json_str(payload)
 
@@ -297,72 +300,91 @@ class VectorStore:
 
 class QdrantVectorStore:
 
-    def __init__(self,embedding_dimension=384):
+    def __init__(self,embedding_dimension=1536):
 
-        self.collection_name = "search_analytics"
-        self.client = QdrantClient(url="http://localhost:6333")
+        self.collection_name = "openaisearch"
+
+        self.client = QdrantClient(url="http://localhost:6333", timeout=3000)
 
         self.vector_store = VectorStore()
 
         self.embeddings=ollama_ef
 
+
         if not self.client.collection_exists(collection_name=self.collection_name):
+            # self.collection = self.client.create_collection(
+            #     collection_name=self.collection_name,
+            #     vectors_config=VectorParams(size=embedding_dimension, distance=Distance.COSINE, multivector_config=MultiVectorConfig(
+            #         comparator=MultiVectorComparator.MAX_SIM
+            #     )),
+            #
+            # )
             self.collection = self.client.create_collection(
                 collection_name=self.collection_name,
-                vectors_config=VectorParams(size=embedding_dimension, distance=Distance.COSINE, multivector_config=MultiVectorConfig(
-                    comparator=MultiVectorComparator.MAX_SIM
-                )),
-
+                vectors_config=VectorParams(size=embedding_dimension, distance=Distance.COSINE),
+                quantization_config=BinaryQuantization(
+                    binary=BinaryQuantizationConfig(
+                        always_ram=True,
+                    ),
+                ),
             )
         else:
             self.collection = self.client.get_collection(collection_name=self.collection_name)
+
+        # self.client.delete_collection(self.collection_name)
+
+
         self.data = get_all_transactions()
 
 
+    def delete_collection(self):
+        self.client.delete_collection(self.collection_name)
 
     def add_vectors(self):
-        # data_copy = copy.deepcopy(self.data)
-        for idx,transaction in enumerate(self.data):
+        data_copy = copy.deepcopy(self.data)
+        vec = []
+        guids = []
+        payloads =[]
+        for idx,transaction in enumerate(tqdm(data_copy)):
             try:
-                act_response_vector =generate_embedding([transaction.get('response') if transaction.get('response') else None])
-                payload_vector = generate_embedding([transaction.get('request')  if transaction.get('request') else None])
+
 
                 # if transaction.get("guid") in ["bc8a2ff4-7ac9-4a1a-bb16-f7389059e3a6","2810", "2707","2691","2708"]:
                 #      pass
+                #
+                if transaction.get("guid") in ["01c92f92-02cb-4ea2-b3f4-005ef0584a7f"]:
+                     pass
+
+
 
                 act_response = self.vector_store.convert_payload(transaction.get('response')if transaction.get('response') else None)
-                payload = self.vector_store.convert_payload(transaction.get('request') if transaction.get('request') else None)
+
+                # act_response = transaction.get("response")
 
 
 
 
 
-                if act_response and act_response_vector:
-                   # chunks = self.vector_store.chunk_text_with_overlap(act_response)
-                   transaction["response"] = act_response.lower()
-                   transaction["documents"] = act_response.lower()
-                   transaction["metadata"] = {"response": True, "text": act_response, "date": str(transaction.get("date")),
-                                     "guid": transaction.get("guid")}
-                   transaction["responseId"] = generate_hash_key(str(transaction.get("guid")) + "@"+'response')
-                   # transaction["responseVector"] =
 
 
+                if act_response:
+                   vec.append(act_response.lower())
+                   # embed = open_ai_embeds.generate_embeddings([act_response])
+                   # embeds.append({transaction.get("guid"):embed})
+                   # transaction["embeddings"] = embeds
 
-                if payload and payload_vector:
-                   # chunks_1 = self.vector_store.chunk_text_with_overlap(payload)
-                   transaction["request"] = payload.lower()
-                   transaction["documents1"] = payload.lower()
-                   transaction["metadata1"] = {
-                                              "request": True, "text": payload,
-                                              "date": str(transaction.get("date")),
-                                              "guid": transaction.get("guid")}
-                   transaction["requestId"] = generate_hash_key(str(transaction.get("guid")) + "@" + 'request')
-                   # transaction["requestVector"] =
+                   # transaction["response"] = act_response.lower()
+                   # transaction["documents"] = act_response.lower()
+                   # transaction["metadata"] = {"response": True, "text": act_response, "date": str(transaction.get("date")),
+                   #                   "guid": transaction.get("guid")}
+                   # transaction["responseId"] = generate_hash_key(str(transaction.get("guid")) + "@"+'response')
+
+                   guids.append(transaction["guid"])
+                   payloads.append({"text":act_response.lower(),"response": True, "text": act_response.lower(), "date": str(transaction.get("date")),"guid": transaction.get("guid")})
+                else:
+                    data_copy.remove(transaction)
 
 
-                if not payload and not act_response:
-                    self.data.remove(transaction)
-                    continue
 
 
             except Exception as e:
@@ -370,45 +392,81 @@ class QdrantVectorStore:
                 print(traceback.format_exc())
                 return
 
-        points =[]
-
-        for idx,doc in enumerate(self.data):
-            try:
-                if doc.get("response") and doc.get("responseId"):
-                    embed = ollama_ef(doc.get("response"))
-                    pay= {k: v for k, v in doc.items() if
-                                         k not in ["requestId", "responseVector", "metadata1", "documents1", "request"]}
-                    points.append(PointStruct(id=doc.get("responseId"), vector=embed,
-                                payload=pay))
-            except Exception as e:
-                print(e)
 
 
-        operation_info = self.client.upsert(
-            collection_name=self.collection_name,
+        # for idx,doc in enumerate(data_copy):
+        #     try:
+        #         if doc.get("response") and doc.get("responseId"):
+        #             embed = ollama_ef(doc.get("response"))
+        #             pay= {k: v for k, v in doc.items() if
+        #                                  k not in ["requestId", "responseVector", "metadata1", "documents1", "request"]}
+        #             points.append(PointStruct(id=doc.get("responseId"), vector=embed,
+        #                         payload=pay))
+        #     except Exception as e:
+        #         print(e)
+
+        #
+        # with open("texts2.json",'w') as f:
+        #     json.dump(vec,f)
+
+
+        # embeddings, texts = open_ai_embeds.generate_embeddings(vec)
+
+        # with open("embeds_without_preprocess.json",'w') as f:
+        #     json.dump(embeddings,f)
+        #
+        # with open("texts_without_preprocess.json", 'w') as f:
+        #     json.dump(texts, f)
+
+        with open('texts.json', 'r') as f:
+            texts = json.load(f)
+
+        with open('embeds.json', 'r') as f:
+            embeddings = json.load(f)
+
+
+        # operation_info = self.client.upsert(
+        #     collection_name=self.collection_name,
+        #     wait=True,
+        #     points=[
+        #         PointStruct(id=doc.get("responseId"), vector=v, payload={k: v for k, v in doc.items() if k not in ["requestId","responseVector","metadata1","documents1","request"]}) for v,doc in zip(embeddings, data_copy) if doc.get("response") and doc.get("responseId")
+        #     ],
+        # )
+
+        points = [
+                PointStruct(id=id, vector=v,
+                            payload=doc)
+                for id,(v, doc) in enumerate(tqdm(zip(embeddings, payloads)))
+            ]
+
+        operation_info = self.client.upload_points(
+            collection_name="openaisearch",
             wait=True,
-            points=[
-                PointStruct(id=doc.get("responseId"), vector=ollama_ef(doc.get("response")), payload={k: v for k, v in doc.items() if k not in ["requestId","responseVector","metadata1","documents1","request"]}) for doc in self.data if doc.get("response") and doc.get("responseId")
-            ],
+            points=points,
         )
 
-        operation_info1 = self.client.upsert(
-            collection_name=self.collection_name,
-            wait=True,
-            points=[
-                PointStruct(id=doc.get("requestId"), vector=ollama_ef(doc.get("request")), payload={k: v for k, v in doc.items() if k not in ["responseVector","responseId","metadata","documents","response"]}) for doc in self.data if doc.get("request") and doc.get("requestId")
-            ],
-        )
+
+
+
+        # operation_info1 = self.client.upsert(
+        #     collection_name=self.collection_name,
+        #     wait=True,
+        #     points=[
+        #         PointStruct(id=doc.get("requestId"), vector=ollama_ef(doc.get("request")), payload={k: v for k, v in doc.items() if k not in ["responseVector","responseId","metadata","documents","response"]}) for doc in self.data if doc.get("request") and doc.get("requestId")
+        #     ],
+        # )
 
     def search_vector(self,query, top_k =10):
+        query_embed,text =open_ai_embeds.generate_embeddings([query])
         hits = self.client.query_points(
-            collection_name=self.collection_name,
-            query=ollama_ef([query]),
+            collection_name="openaisearch",
+            query=query_embed[0],
             limit=top_k,
         ).points
 
         for hit in hits:
-            print(hit.payload.get("guid"), "score:", hit.score,'\n',"text:",hit.payload.get('documents',hit.payload.get('documents1')))
+            print(hit.payload.get("guid"), "score:", hit.score,'\n',"text:",hit.payload.get('text'))
+            print("\n")
 
 
 
@@ -426,8 +484,11 @@ if __name__ == "__main__":
     # print(vector_store.search_vectors("AXIS0000058"))
 
     qdrant = QdrantVectorStore()
+    # qdrant.delete_collection()
     # qdrant.add_vectors()
-    qdrant.search_vector("AXIS0000058")
+    # qdrant.search_vector("Cennox Chain Leeds GB")
+    # qdrant.search_vector("PI323")
+    qdrant.search_vector('gaurav.kumar@gmailcom')
 
 
 
