@@ -5,7 +5,9 @@ import traceback
 import uuid
 import xml.etree.ElementTree as ET
 from enum import Enum
+from typing import List, Iterable
 
+import pandas as pd
 from bs4 import BeautifulSoup
 from datetime import datetime
 
@@ -21,6 +23,7 @@ from qdrant_client.models import Distance, VectorParams, BinaryQuantization, Bin
 from database import get_all_transactions
 from qdrant_client.models import PointStruct, MultiVectorConfig,MultiVectorComparator
 from utils import *
+from prettytable import PrettyTable
 
 
 open_ai_embeds = OpenAIEmbeddings()
@@ -340,6 +343,32 @@ class QdrantVectorStore:
     def delete_collection(self):
         self.client.delete_collection(self.collection_name)
 
+
+    def update_points(self, update_points=None):
+
+
+        '''  update_points=[{"guid":"0029fe79-4994-4e85-a16b-d0d894850d0c","payload":{'date': datetime.datetime(2024, 8, 16, 5, 23, 2, 207000), 'endpoint': '/HB/IB/b369b83d-9a2d-4947-bc29-fb53930dfb00', 'guid': '0029fe79-4994-4e85-a16b-d0d894850d0c', 'request': '{\n  "productId": "1000",\n  "productName": "Iphone 15",\n  "company": "Apple",\n  "price": "85000"\n}', 'response': '{\n  "paymentId": "PI323",\n  "message": "Payment Successfull"\n}', 'source': 'hostbox'}}]
+             '''
+
+        if update_points is None:
+            update_points = []
+        for point in update_points:
+            self.client.set_payload(collection_name=self.collection_name,payload=point['payload'], points=[point['guid']])
+
+
+
+    def retrive_record(self, guids=None):
+
+        if guids is None:
+            guids = []
+
+        results = self.client.retrieve(
+            collection_name=self.collection_name,
+            ids=guids)
+
+        return results
+
+
     def add_vectors(self):
         data_copy = copy.deepcopy(self.data)
         vec = []
@@ -380,7 +409,7 @@ class QdrantVectorStore:
                    # transaction["responseId"] = generate_hash_key(str(transaction.get("guid")) + "@"+'response')
 
                    guids.append(transaction["guid"])
-                   payloads.append({"text":act_response.lower(),"response": True, "text": act_response.lower(), "date": str(transaction.get("date")),"guid": transaction.get("guid")})
+                   payloads.append({"text":act_response.lower(),"response": True, "text": act_response.lower(), "date": str(transaction.get("date")),"guid": transaction.get("guid"),"source":transaction.get("source")})
                 else:
                     data_copy.remove(transaction)
 
@@ -438,10 +467,10 @@ class QdrantVectorStore:
         #     ],
         # )
 
-        # payloads = [payload for payload in payloads if payload.get("text") in texts]
+        payloads = [payload for payload in payloads if payload.get("text") in texts]
 
         points = [
-                PointStruct(id=id, vector=v,
+                PointStruct(id=doc['guid'], vector=v,
                             payload=doc)
                 for id,(v, doc) in enumerate(tqdm(zip(embeddings, payloads)))
             ]
@@ -481,9 +510,19 @@ class QdrantVectorStore:
         sorted_results = sorted(results, key=lambda x: parse_date(x['date']),reverse=True)
 
 
+        df = pd.DataFrame(sorted_results)
+
+
+        df.to_excel("output.xlsx",index=False)
+
+
+
+
         for hit in sorted_results:
-            print(hit.get("guid"),"score:",hit.get('score'),"date:", hit.get('date'),'\n',"text:",hit.get('text'))
-            print("\n")
+
+            print("guid",hit.get("guid"),"score:",hit.get('score'),"date:", hit.get('date'),'\n',"source:", hit.get('source'))
+            # print("text", hit.get('text'))
+            # print("\n")
 
 
 
@@ -501,13 +540,16 @@ if __name__ == "__main__":
     # print(vector_store.search_vectors("AXIS0000058"))
 
     # qdrant = QdrantVectorStore(collection_name='raw_data_search')
-    qdrant = QdrantVectorStore()
+    # qdrant = QdrantVectorStore()
+    qdrant = QdrantVectorStore(collection_name='update_points')
 
     # qdrant.delete_collection()
     # qdrant.add_vectors()
-    # qdrant.search_vector("Cennox Chain Leeds GB")
+    qdrant.update_points()
+
+    # qdrant.search_vector("Cennox Chain Leeds GB and 1651412110")
     # qdrant.search_vector("PI323")
-    qdrant.search_vector('acct is 058010100083000')
+    # qdrant.search_vector('acct is 058010100083000')
 
 
 
