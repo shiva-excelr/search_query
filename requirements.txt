@@ -8,4 +8,10 @@ mysql-connector-python
 openai
 ollama
 prettytable
-
+#psycopg2-binary
+pgvector==0.2.5
+langchain-core
+langchain
+langchain_postgres
+psycopg[binary,pool]
+langchain-huggingface
