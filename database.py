@@ -9,10 +9,10 @@ def get_sql_connection():
         database="common_analytics"
     )
 
-def get_all_transactions():
+def get_all_transactions(query="SELECT createdOn as date,guid, response, request,source FROM common_analytics ORDER BY createdOn DESC"):
     connection = get_sql_connection()
     cursor = connection.cursor(dictionary=True)
-    cursor.execute("SELECT createdOn as date,guid, response, request,source FROM common_analytics ORDER BY createdOn DESC")
+    cursor.execute(query)
     # cursor.execute(
     #     "SELECT guid, response, request FROM common_analytics WHERE LOWER(guid) = LOWER('0029fe79-4994-4e85-a16b-d0d894850d0c')")
     records = cursor.fetchall()

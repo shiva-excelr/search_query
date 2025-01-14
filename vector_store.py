@@ -118,24 +118,7 @@ class VectorStore:
         except Exception as e:
             return self.formatted_json_str(payload)
 
-    def chunk_text_with_overlap(self,text, max_tokens=450, overlap=50):
 
-        words = text.split()
-        chunks = []
-        chunk = []
-
-        for word in words:
-            chunk.append(word)
-
-            if len(chunk) >= max_tokens:
-                chunks.append(' '.join(chunk))  # Join words to form the chunk
-                chunk = chunk[-overlap:]
-
-        # Add the final chunk if there's any leftover text
-        if chunk:
-            chunks.append(' '.join(chunk))
-
-        return chunks
 
     def store_vectors(self,db_data):
 
@@ -452,10 +435,10 @@ class QdrantVectorStore:
         #     embeddings = json.load(f)
 
 
-        with open('texts_without_preprocess.json', 'r') as f:
+        with open('files/texts_without_preprocess.json', 'r') as f:
             texts = json.load(f)
 
-        with open('embeds_without_preprocess.json', 'r') as f:
+        with open('files/embeds_without_preprocess.json', 'r') as f:
             embeddings = json.load(f)
 
 
@@ -540,16 +523,16 @@ if __name__ == "__main__":
     # print(vector_store.search_vectors("AXIS0000058"))
 
     # qdrant = QdrantVectorStore(collection_name='raw_data_search')
-    # qdrant = QdrantVectorStore()
-    qdrant = QdrantVectorStore(collection_name='update_points')
+    qdrant = QdrantVectorStore()
+    # qdrant = QdrantVectorStore(collection_name='update_points')
 
     # qdrant.delete_collection()
     # qdrant.add_vectors()
-    qdrant.update_points()
+    # qdrant.update_points()
 
     # qdrant.search_vector("Cennox Chain Leeds GB and 1651412110")
     # qdrant.search_vector("PI323")
-    # qdrant.search_vector('acct is 058010100083000')
+    qdrant.search_vector('acct is 058010100083000')
 
 
 

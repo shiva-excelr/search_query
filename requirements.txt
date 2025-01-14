@@ -15,3 +15,4 @@ langchain
 langchain_postgres
 psycopg[binary,pool]
 langchain-huggingface
+langchain-text-splitters

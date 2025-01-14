@@ -1,11 +1,85 @@
-<!DOCTYPE html>
+# import json
+# with open('../files/texts_without_preprocess.json', 'r') as f:
+#     texts = json.load(f)
+#
+# with open('../files/embeds.json', 'r') as f:
+#     embeds = json.load(f)
+#
+
+
+model = "text-embedding-3-small"
+from openai import OpenAI
+
+texts = ['''Response <?xml version="1.0" encoding="UTF-8"?>
+<ns2:RespAuthDetails
+	xmlns:ns2="http://npci.org/upi/schema/">
+	<Head msgId="BOIa4097f0d7c684ca4a6e2eddc965968b1" orgId="410005"
+ts="2018-02-17T13:39:56.040+05:30" ver="2.0"/>
+	<Resp reqMsgId="1GRDpegBbA5wfscXLm20" result="SUCCESS"/>
+	<Txn custRef="804813039157" id="AXIb1fbc9cea1f34049904e083034723d49"
+initiationMode="00" note="testpay" refId="804813039157"
+refUrl="http://axis.com/upi" ts="2018-02-17T13:39:54.944+05:30" type="PAY">
+		<RiskScores/>
+	</Txn>
+	<Payer addr="ram@axis" code="0000" name="ram" seqNum="1" type="PERSON">
+		<Info>
+			<Identity id="058010100083492" type="ACCOUNT" verifiedName="Ram"/>
+			<Rating verifiedAddress="TRUE"/>
+		</Info>
+		<Ac addrType="ACCOUNT">
+			<Detail name="ACTYPE" value="SAVINGS"/>
+			<Detail name="ACNUM" value="058010100083000"/>
+			<Detail name="IFSC" value="AXIS0000058"/>
+		</Ac>
+		<Amount curr="INR" value="2.00"/>
+	</Payer>
+	<Payees>
+		<Payee addr="laxmi@boi" code="0000" name="Laxmi"
+seqNum="1" type="PERSON">
+			<Info>
+				<Identity id="910010050136217" type="ACCOUNT" verifiedName="Laxmi "/>
+				<Rating verifiedAddress="TRUE"/>
+			</Info>
+			<Ac addrType="ACCOUNT">
+				<Detail name="ACTYPE" value="SAVINGS"/>
+				<Detail name="ACNUM" value="910010050136000"/>
+				<Detail name="IFSC" value="BKID0000004"/>
+			</Ac>
+			<Amount curr="INR" value="2.00"/>
+		</Payee>
+	</Payees>
+</ns2:RespAuthDetails>
+ Request <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:ReqAuthDetails xmlns:ns2="http://npci.org/upi/schema/" xmlns:ns3="http://npci.org/cm/schema/">
+	<Head ver="2.0" ts="2018-02-17T13:50:44+05:30" orgId="NPCI" msgId="1GRDpegBbA5wfscXLm20"/>
+	<Txn id="AXIb1fbc9cea1f34049904e083034723d49" note="testpay" refId="804813039157" refUrl="http://axis.com/upi" ts="2018-02-17T13:39:54.944+05:30" type="PAY" custRef="804813039157" initiationMode="00">
+	</Txn>
+	<Payees>
+		<Payee addr="laxmi@boi" seqNum="1" type="PERSON">
+			<Amount value="2.00" curr="INR"/>
+		</Payee>
+	</Payees>
+	<Payer addr="ram@axis" name="RAM" seqNum="1" type="PERSON" code="0000">
+		<Info>
+              <Identity id="2345678765" type="ACCOUNT" verifiedName="RAM"/>
+			<Rating verifiedAddress="TRUE"></Rating>
+		</Info>
+		<Ac addrType="ACCOUNT">
+			<Detail name="ACTYPE" value="SAVINGS"/>
+			<Detail name="ACNUM" value="058010100083000"/>
+			<Detail name="IFSC" value="AXIS0000058"/>
+		</Ac>
+		<Amount value="2.00" curr="INR"/>
+	</Payer>
+</ns2:ReqAuthDetails>''','''respauthdetails msgid boia4097f0d7c684ca4a6e2eddc965968b1 orgid 410005 ts 2018-02-17t13:39:56.040+05:30 ver 2.0 reqmsgid 1grdpegbba5wfscxlm20 result success custref 804813039157 id axib1fbc9cea1f34049904e083034723d49 initiationmode 00 note testpay refid 804813039157 refurl http://axis.com/upi ts 2018-02-17t13:39:54.944+05:30 type pay txn   addr ram@axis code 0000 name ram seqnum 1 type person payer  info id 058010100083492 type account verifiedname ram verifiedaddress true  addrtype account ac name actype value savings name acnum value 058010100083000 name ifsc value axis0000058  curr inr value 2.00   payees addr laxmi@boi code 0000 name laxmi seqnum 1 type person payee  info id 910010050136217 type account verifiedname laxmi verifiedaddress true  addrtype account ac name actype value savings name acnum value 910010050136000 name ifsc value bkid0000004  curr inr value 2.00''',
+         '''<!DOCTYPE html>
 <html lang="en">
 
 <head>
    <meta charset="UTF-8" />
    <title>PruTAN</title>
    <link rel="icon" type="image/x-icon" href="favicon.ico">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />   
    <link rel="preconnect" href="https://fonts.googleapis.com" />
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
    <link
@@ -62,8 +136,8 @@
                         <a class="block w-full p-2" data-headlessui-state="open" href="#capabilities">Capabilities</a>
                         <a class="block w-full p-2" data-headlessui-state="open" href="#testimonials">Testimonials</a>
                         <a class="block w-full p-2" data-headlessui-state="open" href="#plans">Plans</a>
-
-                    </div>
+                        
+                    </div>                    
                      <div
                         style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none">
                      </div>
@@ -127,7 +201,7 @@
                   </div>
                </div>
             </div>
-         </section>
+         </section>  
 
          <section id="features" aria-label="Features for running your books"
             class="relative overflow-hidden bg-blue-600 pb-28 pt-20 sm:py-16">
@@ -163,7 +237,7 @@
                               </button>
                            </h3>
                            <p class="mt-2 hidden text-sm lg:block text-white">
-                              The API platform is your go-to protocol for making REST or ISO requests,
+                              The API platform is your go-to protocol for making REST or ISO requests, 
                               validating responses, and leveraging cutting-edge generative AI capabilities.
                            </p>
                         </div>
@@ -178,7 +252,7 @@
                                     class="absolute inset-0 rounded-full lg:rounded-l-xl lg:rounded-r-none"></span>Hostbox
                               </button>
                            </h3>
-                           <p class="mt-2 hidden text-sm lg:block text-blue-100 group-hover:text-white">Hostbox offers a dynamic API simulation for REST and ISO requests,
+                           <p class="mt-2 hidden text-sm lg:block text-blue-100 group-hover:text-white">Hostbox offers a dynamic API simulation for REST and ISO requests, 
                            with an intelligent rule engine that adapts in real-time based on AI-driven rules.</p>
                         </div>
                         <div onclick="renderFeatureImage('featureInterceptor')"
@@ -307,7 +381,7 @@
                </div>
             </div>
          </section>
-
+       
          <section id="capabilities"
             style="background-image: url(background-faqs.55d2e36a.jpg);background-size: cover; background-position: center; background-repeat: no-repeat;"
             aria-label="Capabilities like domain accessing, security & Integration"
@@ -572,7 +646,7 @@
                                  stroke-linejoin="round"></circle>
                            </svg>
                            <span class="ml-4">Access to PruTAN market place</span>
-                        </li>
+                        </li> 
                         <li class="flex">
                            <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-white">
                               <path
@@ -582,7 +656,7 @@
                                  stroke-linejoin="round"></circle>
                            </svg>
                            <span class="ml-4">Priority e-mail and chat support</span>
-                        </li>
+                        </li> 
                         <li class="flex">
                            <svg aria-hidden="true" class="h-6 w-6 flex-none fill-current stroke-current text-white">
                               <path
@@ -842,7 +916,7 @@
       var menuIcon = document.getElementById('menuIcon');
       var menuClosed = document.getElementById('menuClosed');
       var menuOpen = document.getElementById('menuOpen');
-
+      
       var isExpanded = menuIcon.getAttribute('aria-expanded') === 'true';
 
       // Toggle the aria-expanded attribute
@@ -863,7 +937,7 @@
     var menuIcon = document.getElementById('menuIcon');
     var menuOpen = document.getElementById('menuOpen');
     var menuClosed = document.getElementById('menuClosed');
-
+    
     if (event.target !== menuIcon && event.target !== menuOpen && event.target !== menuClosed) {
         toggleMenu();
     }
@@ -871,4 +945,13 @@
    </script>
 </body>
 
-</html>
+</html>''']
+
+
+from chunking_strategy import *
+
+
+for i in texts:
+    a = chunk_text_with_overlap(texts[2])
+    print(a)
+

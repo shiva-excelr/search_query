@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:RespAuthDetails xmlns:ns2="http://npci.org/upi/schema/">
+   <Head msgId="BOIbc4a5c78392e4d89af82589fb5f8d461" orgId="410005" ts="2018-02-23T14:53:37.721+05:30" ver="2.0" />
+   <Resp reqMsgId="1GRDpegBbA5wuiCOKaMo" result="SUCCESS" />
+   <Txn custRef="805414040578" id="AXIfcd764aeab2a4bd195b25d652c1887f7" initiationMode="00" note="collect" refId="805414040578" refUrl="http://axis.com/upi" ts="2018-02-23T14:52:32.427+05:30" type="COLLECT">
+      <RiskScores />
+      <Rules>
+         <Rule name="EXPIREAFTER" value="1440" />
+         <Rule name="MINAMOUNT" value="1.00" />
+      </Rules>
+   </Txn>
+   <Payer addr="shyam@axis" code="0000" name="shyam" seqNum="1" type="PERSON">
+      <Info>
+         <Identity id="910010050136217" type="ACCOUNT" verifiedName="Shyam" />
+      </Info>
+      <Device>
+         <Tag name="MOBILE" value="919701425053" />
+         <Tag name="GEOCODE" value="19.0911 ,72.9208" />
+         <Tag name="ID" value="356823072981728" />
+         <Tag name="OS" value="Android5.1.1" />
+         <Tag name="IP" value="10.133.126.45" />
+         <Tag name="APP" value="com.upi.axispay" />
+         <Tag name="TYPE" value="MOB" />
+         <Tag name="CAPABILITY" value="011001" />
+      </Device>
+      <Ac addrType="ACCOUNT">
+         <Detail name="ACTYPE" value="SAVINGS" />
+         <Detail name="ACNUM" value="910010050136000" />
+         <Detail name="IFSC" value="BKID0000004" />
+      </Ac>
+      <Creds>
+         <Cred subType="MPIN" type="PIN">
+            <Data code="NPCI" ki="20150822">2.0|GneSwLbOfn/b+Q6AbmMxAIONVm7FAS9QtbGXXXgzxJPcX2wMWRxOI1GbDu9O9zp
+afqHV7m5NFViZ1dpF4Ddf8vGiJQKgLxmY0Wc5JDuoCA5dA/CMb8Xfyp5/qwd1Q+PKu5/jASeKR8AWg6bd
+EH0EptFeIvc73z/Cpo2CjVBR8kqMe/xMNma/jgMcQ0jrYGcK08X9jpGrY+aBBnEWbnuOn/jYixcwjWkaz6Lq3/
+3MIHKIz/ao4r0sAolamSrtb3UQOnAZy5/gvrs0Bs3A/vy4v4XFtUXulqfmiuW46NiaCHiF/gD0HilZC/v2yQk8Df
+bhqWzaWO4Q/fW23F0Iswtwlw==</Data>
+         </Cred>
+      </Creds>
+      <Amount curr="INR" value="2.00" />
+   </Payer>
+   <Payees>
+      <Payee addr="ram@axis" code="0000" name="RAM" seqNum="1" type="PERSON">
+         <Info>
+            <Identity id="058010100083492" type="ACCOUNT" verifiedName="Ram" />
+            <Rating verifiedAddress="TRUE" />
+         </Info>
+         <Ac addrType="ACCOUNT">
+            <Detail name="ACTYPE" value="SAVINGS" />
+            <Detail name="ACNUM" value="058010100083000" />
+            <Detail name="IFSC" value="AXIS0000058" />
+         </Ac>
+         <Amount curr="INR" value="2.00" />
+      </Payee>
+   </Payees>
+</ns2:RespAuthDetails>
