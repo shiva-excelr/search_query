@@ -16,7 +16,7 @@ import chromadb.utils.embedding_functions as embedding_functions
 
 ollama_ef = embedding_functions.OllamaEmbeddingFunction(
     url="http://localhost:11434/api/embeddings",
-    model_name="all-minilm",
+    model_name="nomic-embed-text",
 )
 
 
