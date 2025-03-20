@@ -1,0 +1,17 @@
+[
+    {
+        "servers": [
+            {
+                "description": "Generated server url",
+                "url": "http://dev-app.prutan.com/prutan"
+            }
+        ],
+        "path": "/api/otp/send",
+        "method": "post",
+        "summary": "sendOtp",
+        "description": "",
+        "headers": [],
+        "query_params": [],
+        "body": {
+            "content": {
+                "application/json": 

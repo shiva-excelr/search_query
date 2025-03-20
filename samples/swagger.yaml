@@ -1,0 +1,2735 @@
+components:
+  schemas:
+    Agent:
+      properties:
+        name:
+          title: Name
+          type: string
+        path:
+          title: Path
+          type: string
+        type:
+          title: Type
+          type: string
+      required:
+      - name
+      - type
+      - path
+      title: Agent
+      type: object
+    AgentWorkflow:
+      properties:
+        name:
+          title: Name
+          type: string
+        type:
+          title: Type
+          type: string
+        workflow:
+          items:
+            $ref: '#/components/schemas/Agent'
+          title: Workflow
+          type: array
+      required:
+      - name
+      - type
+      - workflow
+      title: AgentWorkflow
+      type: object
+    AppGPTBotCreationConfig:
+      properties:
+        agent_workflow:
+          anyOf:
+          - $ref: '#/components/schemas/AgentWorkflow'
+          - type: 'null'
+          examples:
+          - name: agent
+            type: agent
+            workflow:
+            - name: Document Verification
+              path: /api/v1/agent/document-verification
+              type: DocumentVerification
+            - name: Credit Score Fetcher
+              path: /api/v1/agent/credit-score-fetcher
+              type: CreditScoreFetcher
+            - name: Credit Score Verification
+              path: /api/v1/agent/credit-verification
+              type: CreditScoreVerification
+            - name: Risk Computer
+              path: /api/v1/agent/risk-computer
+              type: RiskComputer
+            - name: Eligibility and Risk Assessment
+              path: /api/v1/agent/eligibility-risk-assessment
+              type: EligibilityAndRiskAssessment
+            - name: Loan Application Final Decision
+              path: /api/v1/agent/loan-application-decision
+              type: LoanApplicationFinalDecision
+        bot_config:
+          anyOf:
+          - type: object
+          - type: 'null'
+          default: {}
+          title: Bot Config
+        bot_record_id:
+          title: Bot Record Id
+          type: string
+        bot_use_case:
+          allOf:
+          - $ref: '#/components/schemas/BotUseCase'
+          default: lead_generation
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        emails:
+          default: []
+          items:
+            type: string
+          title: Emails
+          type: array
+        functions_openapi_spec:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Functions Openapi Spec
+        knowledge_base:
+          $ref: '#/components/schemas/AppGPTKnowledgeBaseConfig'
+      required:
+      - knowledge_base
+      - bot_record_id
+      title: AppGPTBotCreationConfig
+      type: object
+    AppGPTBotUpdationConfig:
+      properties:
+        bot_record_id:
+          title: Bot Record Id
+          type: string
+        knowledge_base:
+          $ref: '#/components/schemas/AppGPTKnowledgeBaseConfig'
+      required:
+      - knowledge_base
+      - bot_record_id
+      title: AppGPTBotUpdationConfig
+      type: object
+    AppGPTKnowledgeBaseConfig:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        documents:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/Document'
+            type: array
+          - type: 'null'
+          title: Documents
+        websites:
+          anyOf:
+          - items:
+              anyOf:
+              - format: uri
+                maxLength: 2083
+                minLength: 1
+                type: string
+              - $ref: '#/components/schemas/SiaURL'
+            type: array
+          - type: 'null'
+          title: Websites
+      title: AppGPTKnowledgeBaseConfig
+      type: object
+    AppGPTMessageAgentRequest:
+      additionalProperties: true
+      properties:
+        botRecordId:
+          title: Botrecordid
+          type: string
+        command:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Command
+        config:
+          default: {}
+          title: Config
+          type: object
+        conversationHistory:
+          anyOf:
+          - items:
+              type: object
+            type: array
+          - type: 'null'
+          title: Conversationhistory
+        message:
+          title: Message
+          type: string
+        sources:
+          anyOf:
+          - items:
+              type: object
+            type: array
+          - type: 'null'
+          title: Sources
+        uploadedFileS3Info:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Uploadedfiles3Info
+      required:
+      - botRecordId
+      - message
+      title: AppGPTMessageAgentRequest
+      type: object
+    AppGPTMigrationFeatures:
+      properties:
+        enable_query_normalization:
+          default: false
+          title: Enable Query Normalization
+          type: boolean
+        responders:
+          default:
+          - GenerativeResponder
+          items:
+            type: string
+          title: Responders
+          type: array
+        search:
+          default: PineconeSearch
+          title: Search
+          type: string
+      title: AppGPTMigrationFeatures
+      type: object
+    AvailableGuardRails:
+      enum:
+      - MARKDOWN_TO_HTML
+      - NEWLINES_TO_BR_TAGS
+      - HANDLE_GENERATIVE_RESPONDER_FAILURE
+      - ADHERE_FINANCIAL_RESPONSE
+      title: AvailableGuardRails
+      type: string
+    Body_calculate_metric_api_v1_app_gpt_comparison_metrics_post:
+      properties:
+        contexts:
+          items:
+            type: string
+          title: Contexts
+          type: array
+        queries:
+          items:
+            type: string
+          title: Queries
+          type: array
+        responses:
+          items:
+            type: string
+          title: Responses
+          type: array
+      required:
+      - queries
+      - responses
+      - contexts
+      title: Body_calculate_metric_api_v1_app_gpt_comparison_metrics_post
+      type: object
+    Body_index_document_web_qa_api_v1_app_gpt_web_qa_indexing_document_post:
+      properties:
+        botRecordId:
+          title: Botrecordid
+          type: string
+        citationLabel:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Citationlabel
+        citationSource:
+          title: Citationsource
+          type: string
+        pdf_file:
+          format: binary
+          title: Pdf File
+          type: string
+      required:
+      - pdf_file
+      - botRecordId
+      - citationSource
+      title: Body_index_document_web_qa_api_v1_app_gpt_web_qa_indexing_document_post
+      type: object
+    Body_index_faq_excel_api_v1_app_gpt_web_qa_indexing_excel_post:
+      properties:
+        botRecordId:
+          title: Botrecordid
+          type: string
+        citationLabel:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Citationlabel
+        citationSource:
+          title: Citationsource
+          type: string
+        excel_file:
+          format: binary
+          title: Excel File
+          type: string
+        priority:
+          default: 0
+          title: Priority
+          type: integer
+        processInternally:
+          default: false
+          title: Processinternally
+          type: boolean
+      required:
+      - excel_file
+      - botRecordId
+      - citationSource
+      title: Body_index_faq_excel_api_v1_app_gpt_web_qa_indexing_excel_post
+      type: object
+    Body_set_prompt_api_v1_app_gpt_config_prompt__bot_record_id__patch:
+      properties:
+        prompt:
+          title: Prompt
+          type: string
+      required:
+      - prompt
+      title: Body_set_prompt_api_v1_app_gpt_config_prompt__bot_record_id__patch
+      type: object
+    Body_update_model_api_v1_app_gpt_config_model__bot_record_id__post:
+      properties:
+        dependent_tasks:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Dependent Tasks
+        upgrade_config:
+          $ref: '#/components/schemas/ModelConfig'
+      required:
+      - upgrade_config
+      title: Body_update_model_api_v1_app_gpt_config_model__bot_record_id__post
+      type: object
+    BotIndexedRecordsRequest:
+      properties:
+        botRecordId:
+          title: Botrecordid
+          type: string
+        downloadable:
+          default: true
+          title: Downloadable
+          type: boolean
+      required:
+      - botRecordId
+      title: BotIndexedRecordsRequest
+      type: object
+    BotUseCase:
+      enum:
+      - basic
+      - basic_gpt
+      - lead_generation
+      - customer_support
+      - event_booking
+      - appointment_booking
+      - financial_summary
+      - loan_management
+      - loan_management_v1
+      - custom
+      title: BotUseCase
+      type: string
+    ChatCompletionAssistantMessageParam-Input:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
+              - $ref: '#/components/schemas/ChatCompletionContentPartRefusalParam'
+            type: array
+          - type: 'null'
+          title: Content
+        function_call:
+          anyOf:
+          - $ref: '#/components/schemas/FunctionCall'
+          - type: 'null'
+        name:
+          title: Name
+          type: string
+        refusal:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Refusal
+        role:
+          const: assistant
+          enum:
+          - assistant
+          title: Role
+          type: string
+        tool_calls:
+          items:
+            $ref: '#/components/schemas/ChatCompletionMessageToolCallParam'
+          title: Tool Calls
+          type: array
+      required:
+      - role
+      title: ChatCompletionAssistantMessageParam
+      type: object
+    ChatCompletionAssistantMessageParam-Output:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
+              - $ref: '#/components/schemas/ChatCompletionContentPartRefusalParam'
+            type: array
+          - type: 'null'
+          title: Content
+        function_call:
+          anyOf:
+          - $ref: '#/components/schemas/FunctionCall'
+          - type: 'null'
+        name:
+          title: Name
+          type: string
+        refusal:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Refusal
+        role:
+          const: assistant
+          enum:
+          - assistant
+          title: Role
+          type: string
+        tool_calls:
+          items:
+            $ref: '#/components/schemas/ChatCompletionMessageToolCallParam'
+          title: Tool Calls
+          type: array
+      required:
+      - role
+      title: ChatCompletionAssistantMessageParam
+      type: object
+    ChatCompletionContentPartImageParam:
+      properties:
+        image_url:
+          $ref: '#/components/schemas/ImageURL'
+        type:
+          const: image_url
+          enum:
+          - image_url
+          title: Type
+          type: string
+      required:
+      - image_url
+      - type
+      title: ChatCompletionContentPartImageParam
+      type: object
+    ChatCompletionContentPartRefusalParam:
+      properties:
+        refusal:
+          title: Refusal
+          type: string
+        type:
+          const: refusal
+          enum:
+          - refusal
+          title: Type
+          type: string
+      required:
+      - refusal
+      - type
+      title: ChatCompletionContentPartRefusalParam
+      type: object
+    ChatCompletionContentPartTextParam:
+      properties:
+        text:
+          title: Text
+          type: string
+        type:
+          const: text
+          enum:
+          - text
+          title: Type
+          type: string
+      required:
+      - text
+      - type
+      title: ChatCompletionContentPartTextParam
+      type: object
+    ChatCompletionFunctionMessageParam:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content
+        name:
+          title: Name
+          type: string
+        role:
+          const: function
+          enum:
+          - function
+          title: Role
+          type: string
+      required:
+      - content
+      - name
+      - role
+      title: ChatCompletionFunctionMessageParam
+      type: object
+    ChatCompletionMessageToolCallParam:
+      properties:
+        function:
+          $ref: '#/components/schemas/Function'
+        id:
+          title: Id
+          type: string
+        type:
+          const: function
+          enum:
+          - function
+          title: Type
+          type: string
+      required:
+      - id
+      - function
+      - type
+      title: ChatCompletionMessageToolCallParam
+      type: object
+    ChatCompletionSystemMessageParam:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - items:
+              $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
+            type: array
+          title: Content
+        name:
+          title: Name
+          type: string
+        role:
+          const: system
+          enum:
+          - system
+          title: Role
+          type: string
+      required:
+      - content
+      - role
+      title: ChatCompletionSystemMessageParam
+      type: object
+    ChatCompletionToolMessageParam:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - items:
+              $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
+            type: array
+          title: Content
+        role:
+          const: tool
+          enum:
+          - tool
+          title: Role
+          type: string
+        tool_call_id:
+          title: Tool Call Id
+          type: string
+      required:
+      - content
+      - role
+      - tool_call_id
+      title: ChatCompletionToolMessageParam
+      type: object
+    ChatCompletionUserMessageParam-Input:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
+              - $ref: '#/components/schemas/ChatCompletionContentPartImageParam'
+            type: array
+          title: Content
+        name:
+          title: Name
+          type: string
+        role:
+          const: user
+          enum:
+          - user
+          title: Role
+          type: string
+      required:
+      - content
+      - role
+      title: ChatCompletionUserMessageParam
+      type: object
+    ChatCompletionUserMessageParam-Output:
+      properties:
+        content:
+          anyOf:
+          - type: string
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ChatCompletionContentPartTextParam'
+              - $ref: '#/components/schemas/ChatCompletionContentPartImageParam'
+            type: array
+          title: Content
+        name:
+          title: Name
+          type: string
+        role:
+          const: user
+          enum:
+          - user
+          title: Role
+          type: string
+      required:
+      - content
+      - role
+      title: ChatCompletionUserMessageParam
+      type: object
+    CloneBotConfig:
+      properties:
+        bot_record_id:
+          title: Bot Record Id
+          type: string
+        include_trained_data:
+          default: false
+          title: Include Trained Data
+          type: boolean
+        with_same_bot_id:
+          default: false
+          title: With Same Bot Id
+          type: boolean
+      required:
+      - bot_record_id
+      title: CloneBotConfig
+      type: object
+    CrawlerValidationRequest:
+      additionalProperties: true
+      properties:
+        customLinkExtractor:
+          default: true
+          title: Customlinkextractor
+          type: boolean
+        depth:
+          default: 1
+          title: Depth
+          type: integer
+        emailInfo:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Emailinfo
+        emulateBrowser:
+          default: true
+          title: Emulatebrowser
+          type: boolean
+        url:
+          format: uri
+          maxLength: 2083
+          minLength: 1
+          title: Url
+          type: string
+      required:
+      - url
+      title: CrawlerValidationRequest
+      type: object
+    Document:
+      additionalProperties: true
+      properties:
+        s3Info:
+          additionalProperties:
+            type: string
+          title: S3Info
+          type: object
+        type:
+          enum:
+          - faq-excel
+          - article
+          title: Type
+          type: string
+      required:
+      - type
+      - s3Info
+      title: Document
+      type: object
+    FlushPayload:
+      properties:
+        pattern:
+          title: Pattern
+          type: string
+      required:
+      - pattern
+      title: FlushPayload
+      type: object
+    Function:
+      properties:
+        arguments:
+          title: Arguments
+          type: string
+        name:
+          title: Name
+          type: string
+      required:
+      - arguments
+      - name
+      title: Function
+      type: object
+    FunctionCall:
+      properties:
+        arguments:
+          title: Arguments
+          type: string
+        name:
+          title: Name
+          type: string
+      required:
+      - arguments
+      - name
+      title: FunctionCall
+      type: object
+    GenerativeQueryNormalizationPayload:
+      properties:
+        conversation_history:
+          anyOf:
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ChatCompletionSystemMessageParam'
+              - $ref: '#/components/schemas/ChatCompletionUserMessageParam-Input'
+              - $ref: '#/components/schemas/ChatCompletionAssistantMessageParam-Input'
+              - $ref: '#/components/schemas/ChatCompletionToolMessageParam'
+              - $ref: '#/components/schemas/ChatCompletionFunctionMessageParam'
+            type: array
+          - type: 'null'
+          title: Conversation History
+        instruction:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Instruction
+        model:
+          default: gpt-4o-mini
+          title: Model
+          type: string
+        query:
+          title: Query
+          type: string
+        seed:
+          default: 42
+          title: Seed
+          type: integer
+        temperature:
+          default: 0.0
+          title: Temperature
+          type: number
+      required:
+      - query
+      title: GenerativeQueryNormalizationPayload
+      type: object
+    GuardRailConfig:
+      properties:
+        guard_rails:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/AvailableGuardRails'
+            - $ref: '#/components/schemas/OpenAPISpec'
+          title: Guard Rails
+          type: array
+      required:
+      - guard_rails
+      title: GuardRailConfig
+      type: object
+    GuardRailModifyConfig:
+      properties:
+        additional_guard_rails:
+          anyOf:
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/AvailableGuardRails'
+              - type: string
+            type: array
+          - type: 'null'
+          title: Additional Guard Rails
+        metadata:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Metadata
+        removal_guard_rails:
+          anyOf:
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/AvailableGuardRails'
+              - type: string
+            type: array
+          - type: 'null'
+          title: Removal Guard Rails
+      title: GuardRailModifyConfig
+      type: object
+    GuardRailOpenAPISpec:
+      properties:
+        components:
+          title: Components
+          type: object
+        info:
+          title: Info
+          type: object
+        openapi:
+          description: Only OpenAPI version >= 3.1 is supported
+          title: Openapi
+          type: string
+        paths:
+          additionalProperties:
+            additionalProperties:
+              $ref: '#/components/schemas/OpenAPIPath'
+            type: object
+          maxProperties: 1
+          minProperties: 1
+          title: Paths
+          type: object
+        servers:
+          items:
+            $ref: '#/components/schemas/OpenAPIServer'
+          minItems: 1
+          title: Servers
+          type: array
+      required:
+      - openapi
+      - info
+      - servers
+      - paths
+      - components
+      title: GuardRailOpenAPISpec
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    ImageURL:
+      properties:
+        detail:
+          enum:
+          - auto
+          - low
+          - high
+          title: Detail
+          type: string
+        url:
+          title: Url
+          type: string
+      required:
+      - url
+      title: ImageURL
+      type: object
+    IndexingCrawlerRequest:
+      properties:
+        botRecordId:
+          title: Botrecordid
+          type: string
+        customLinkExtractor:
+          title: Customlinkextractor
+          type: boolean
+        emailInfo:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Emailinfo
+        emulateBrowser:
+          title: Emulatebrowser
+          type: boolean
+        processInternally:
+          title: Processinternally
+          type: boolean
+        urls:
+          items:
+            $ref: '#/components/schemas/SiaURL'
+          title: Urls
+          type: array
+      required:
+      - urls
+      - botRecordId
+      - processInternally
+      - customLinkExtractor
+      - emulateBrowser
+      - emailInfo
+      title: IndexingCrawlerRequest
+      type: object
+    IndexingTextConfig:
+      properties:
+        CitationSource:
+          title: Citationsource
+          type: string
+        anchorText:
+          title: Anchortext
+          type: string
+        botRecordId:
+          title: Botrecordid
+          type: string
+        text:
+          title: Text
+          type: string
+      required:
+      - botRecordId
+      - text
+      - CitationSource
+      - anchorText
+      title: IndexingTextConfig
+      type: object
+    InferencePayload:
+      properties:
+        conversation_history:
+          anyOf:
+          - items:
+              anyOf:
+              - $ref: '#/components/schemas/ChatCompletionSystemMessageParam'
+              - $ref: '#/components/schemas/ChatCompletionUserMessageParam-Input'
+              - $ref: '#/components/schemas/ChatCompletionAssistantMessageParam-Input'
+              - $ref: '#/components/schemas/ChatCompletionToolMessageParam'
+              - $ref: '#/components/schemas/ChatCompletionFunctionMessageParam'
+            type: array
+          - type: 'null'
+          title: Conversation History
+        id:
+          title: Id
+          type: string
+        query:
+          title: Query
+          type: string
+      required:
+      - id
+      - query
+      title: InferencePayload
+      type: object
+    ModelComparisonConfig:
+      properties:
+        callbackUrl:
+          title: Callbackurl
+          type: string
+        evaluate:
+          default: true
+          title: Evaluate
+          type: boolean
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/NodeModelUpgradeConfig'
+          - type: 'null'
+        new_model:
+          title: New Model
+          type: string
+        processInternally:
+          default: false
+          title: Processinternally
+          type: boolean
+        testQueriesS3Info:
+          additionalProperties:
+            type: string
+          title: Testqueriess3Info
+          type: object
+      required:
+      - new_model
+      - testQueriesS3Info
+      - callbackUrl
+      title: ModelComparisonConfig
+      type: object
+    ModelConfig:
+      additionalProperties: true
+      properties:
+        metadata:
+          anyOf:
+          - $ref: '#/components/schemas/NodeModelUpgradeConfig'
+          - type: 'null'
+        model:
+          title: Model
+          type: string
+      required:
+      - model
+      title: ModelConfig
+      type: object
+    MultiAgentFlowUpdateConfig:
+      additionalProperties: true
+      properties:
+        agent_workflow:
+          $ref: '#/components/schemas/AgentWorkflow'
+        metadata:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Metadata
+      required:
+      - agent_workflow
+      title: MultiAgentFlowUpdateConfig
+      type: object
+    NodeModelUpgradeConfig:
+      additionalProperties: true
+      properties:
+        sourcePage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sourcepage
+        upgradeCount:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Upgradecount
+      title: NodeModelUpgradeConfig
+      type: object
+    OpenAPIPath:
+      properties:
+        description:
+          description: LLM-optimised description of the tool
+          title: Description
+          type: string
+        operationId:
+          description: LLM-optimised operation ID of the tool
+          title: Operationid
+          type: string
+        requestBody:
+          title: Requestbody
+          type: object
+        responses:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Responses
+        summary:
+          title: Summary
+          type: string
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+      required:
+      - summary
+      - description
+      - operationId
+      - requestBody
+      title: OpenAPIPath
+      type: object
+    OpenAPIServer:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'Include the environment for this URL. For example: dev(elopment)
+            or prod(uction).'
+          title: Description
+        url:
+          title: Url
+          type: string
+      required:
+      - url
+      title: OpenAPIServer
+      type: object
+    OpenAPISpec:
+      properties:
+        data:
+          anyOf:
+          - type: string
+          - type: object
+          title: Data
+      required:
+      - data
+      title: OpenAPISpec
+      type: object
+    Response-Input:
+      properties:
+        bot_response_extras:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Bot Response Extras
+        extras:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Extras
+        messages:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/ChatCompletionSystemMessageParam'
+            - $ref: '#/components/schemas/ChatCompletionUserMessageParam-Input'
+            - $ref: '#/components/schemas/ChatCompletionAssistantMessageParam-Input'
+            - $ref: '#/components/schemas/ChatCompletionToolMessageParam'
+            - $ref: '#/components/schemas/ChatCompletionFunctionMessageParam'
+          title: Messages
+          type: array
+        reply:
+          title: Reply
+          type: string
+      required:
+      - reply
+      - messages
+      title: Response
+      type: object
+    Response-Output:
+      properties:
+        bot_response_extras:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Bot Response Extras
+        extras:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Extras
+        messages:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/ChatCompletionSystemMessageParam'
+            - $ref: '#/components/schemas/ChatCompletionUserMessageParam-Output'
+            - $ref: '#/components/schemas/ChatCompletionAssistantMessageParam-Output'
+            - $ref: '#/components/schemas/ChatCompletionToolMessageParam'
+            - $ref: '#/components/schemas/ChatCompletionFunctionMessageParam'
+          title: Messages
+          type: array
+        reply:
+          title: Reply
+          type: string
+      required:
+      - reply
+      - messages
+      title: Response
+      type: object
+    SearchConfig:
+      properties:
+        filters:
+          items:
+            type: string
+          title: Filters
+          type: array
+        handler:
+          title: Handler
+        max_tokens:
+          default: 2000
+          title: Max Tokens
+          type: integer
+        min_confidence:
+          default: 0.0
+          title: Min Confidence
+          type: number
+        post_hooks:
+          items:
+            type: string
+          title: Post Hooks
+          type: array
+        target_language:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Target Language
+        top_k:
+          default: 5
+          title: Top K
+          type: integer
+      required:
+      - handler
+      title: SearchConfig
+      type: object
+    SiaURL:
+      additionalProperties: true
+      properties:
+        depth:
+          default: 1
+          title: Depth
+          type: integer
+        url:
+          format: uri
+          maxLength: 2083
+          minLength: 1
+          title: Url
+          type: string
+      required:
+      - url
+      title: SiaURL
+      type: object
+    SinglePageIndexingConfig:
+      properties:
+        bot_record_id:
+          title: Bot Record Id
+          type: string
+        email_info:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Email Info
+        emulate_browser:
+          default: true
+          title: Emulate Browser
+          type: boolean
+        force_recompute:
+          default: false
+          title: Force Recompute
+          type: boolean
+        pages:
+          items:
+            $ref: '#/components/schemas/SiaURL'
+          title: Pages
+          type: array
+        process_internally:
+          default: false
+          title: Process Internally
+          type: boolean
+      required:
+      - bot_record_id
+      - pages
+      title: SinglePageIndexingConfig
+      type: object
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+    WebPageSourceRequest:
+      properties:
+        url:
+          $ref: '#/components/schemas/SiaURL'
+      required:
+      - url
+      title: WebPageSourceRequest
+      type: object
+    WebQACloneConfig:
+      properties:
+        emailInfo:
+          anyOf:
+          - type: object
+          - type: 'null'
+          examples:
+          - toEmail:
+            - test@skil.ai
+          title: Emailinfo
+        processInternally:
+          default: false
+          title: Processinternally
+          type: boolean
+        sourceBotRecordId:
+          title: Sourcebotrecordid
+          type: string
+        targetBotRecordId:
+          title: Targetbotrecordid
+          type: string
+      required:
+      - sourceBotRecordId
+      - targetBotRecordId
+      title: WebQACloneConfig
+      type: object
+    WebQAIndexedRecordsRequest:
+      properties:
+        botRecordId:
+          title: Botrecordid
+          type: string
+        downloadable:
+          default: true
+          title: Downloadable
+          type: boolean
+        emailInfo:
+          anyOf:
+          - type: object
+          - type: 'null'
+          title: Emailinfo
+        procesInternally:
+          default: false
+          title: Procesinternally
+          type: boolean
+        uploadToS3:
+          default: true
+          title: Uploadtos3
+          type: boolean
+        url:
+          title: Url
+          type: string
+      required:
+      - botRecordId
+      - url
+      title: WebQAIndexedRecordsRequest
+      type: object
+    WebQAUpdateConfig:
+      properties:
+        botRecordId:
+          title: Botrecordid
+          type: string
+        metadataQuery:
+          title: Metadataquery
+          type: object
+        updateFields:
+          title: Updatefields
+          type: object
+      required:
+      - botRecordId
+      - metadataQuery
+      - updateFields
+      title: WebQAUpdateConfig
+      type: object
+    app__api__endpoints__app_gpt_indexing__WebQADeletionConfig__1:
+      properties:
+        botRecordId:
+          title: Botrecordid
+          type: string
+        sources:
+          items:
+            type: string
+          title: Sources
+          type: array
+      required:
+      - botRecordId
+      - sources
+      title: WebQADeletionConfig
+      type: object
+    app__api__endpoints__app_gpt_indexing__WebQADeletionConfig__2:
+      properties:
+        botRecordId:
+          title: Botrecordid
+          type: string
+        urls:
+          items:
+            type: string
+          title: Urls
+          type: array
+      required:
+      - botRecordId
+      - urls
+      title: WebQADeletionConfig
+      type: object
+info:
+  title: sia-gen-ai-services
+  version: 0.1.0
+openapi: 3.1.0
+paths:
+  /api/v1/app-gpt/chat:
+    post:
+      operationId: web_question_answering_api_v1_app_gpt_chat_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InferencePayload'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Web Question Answering
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/clone:
+    post:
+      operationId: clone_bot_config_api_v1_app_gpt_clone_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloneBotConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Clone Bot Config
+      tags:
+      - app-gpt-update
+  /api/v1/app-gpt/comparison/metrics:
+    post:
+      operationId: calculate_metric_api_v1_app_gpt_comparison_metrics_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_calculate_metric_api_v1_app_gpt_comparison_metrics_post'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Calculate Metric
+      tags:
+      - app-gpt-update
+  /api/v1/app-gpt/comparison/model/:
+    get:
+      operationId: compare_models_api_v1_app_gpt_comparison_model__get
+      parameters:
+      - in: query
+        name: models
+        required: true
+        schema:
+          title: Models
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Compare Models
+      tags:
+      - app-gpt-update
+  /api/v1/app-gpt/comparison/model/{bot_record_id}:
+    post:
+      operationId: compare_models_api_v1_app_gpt_comparison_model__bot_record_id__post
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelComparisonConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Compare Models
+      tags:
+      - app-gpt-update
+  /api/v1/app-gpt/config/guard-rails/{bot_record_id}:
+    delete:
+      operationId: delete_guard_rails_api_v1_app_gpt_config_guard_rails__bot_record_id__delete
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GuardRailConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Guard Rails
+      tags:
+      - app-gpt-update
+    get:
+      operationId: get_current_guard_rails_api_v1_app_gpt_config_guard_rails__bot_record_id__get
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Current Guard Rails
+      tags:
+      - app-gpt-update
+    patch:
+      operationId: modify_guard_rails_api_v1_app_gpt_config_guard_rails__bot_record_id__patch
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GuardRailModifyConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Modify Guard Rails
+      tags:
+      - app-gpt-update
+    post:
+      operationId: update_guard_rails_api_v1_app_gpt_config_guard_rails__bot_record_id__post
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GuardRailConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Update Guard Rails
+      tags:
+      - app-gpt-update
+  /api/v1/app-gpt/config/model/{bot_record_id}:
+    post:
+      operationId: update_model_api_v1_app_gpt_config_model__bot_record_id__post
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_update_model_api_v1_app_gpt_config_model__bot_record_id__post'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Update Model
+      tags:
+      - app-gpt-update
+  /api/v1/app-gpt/config/models/:
+    get:
+      operationId: get_all_supported_models_api_v1_app_gpt_config_models__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                items:
+                  type: object
+                title: Response Get All Supported Models Api V1 App Gpt Config Models  Get
+                type: array
+          description: Successful Response
+      summary: Get All Supported Models
+      tags:
+      - app-gpt-update
+  /api/v1/app-gpt/config/prompt/multi-agent/{bot_record_id}:
+    patch:
+      operationId: set_multi_agent_prompt_api_v1_app_gpt_config_prompt_multi_agent__bot_record_id__patch
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentWorkflow'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Set Multi Agent Prompt
+      tags:
+      - app-gpt
+    post:
+      operationId: update_multi_agent_prompt_api_v1_app_gpt_config_prompt_multi_agent__bot_record_id__post
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiAgentFlowUpdateConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Update Multi Agent Prompt
+      tags:
+      - app-gpt-update
+  /api/v1/app-gpt/config/prompt/{bot_record_id}:
+    get:
+      operationId: get_prompt_api_v1_app_gpt_config_prompt__bot_record_id__get
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Prompt
+      tags:
+      - app-gpt
+    patch:
+      operationId: set_prompt_api_v1_app_gpt_config_prompt__bot_record_id__patch
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_set_prompt_api_v1_app_gpt_config_prompt__bot_record_id__patch'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Set Prompt
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/config/templates/guard-rails:
+    get:
+      operationId: get_available_guard_rails_api_v1_app_gpt_config_templates_guard_rails_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Get Available Guard Rails
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/config/templates/guard-rails/validation:
+    post:
+      operationId: validate_guard_rail_api_v1_app_gpt_config_templates_guard_rails_validation_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GuardRailOpenAPISpec'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Validate Guard Rail
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/config/templates/instructions:
+    get:
+      operationId: get_all_instructions_api_v1_app_gpt_config_templates_instructions_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Get All Instructions
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/config/{bot_record_id}:
+    patch:
+      operationId: update_bot_config_api_v1_app_gpt_config__bot_record_id__patch
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppGPTBotUpdationConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Update Bot Config
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/converters/openapi-to-openai-json-schema:
+    post:
+      operationId: openapi_to_function_api_v1_app_gpt_converters_openapi_to_openai_json_schema_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpenAPISpec'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Openapi To Function
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/creation:
+    post:
+      operationId: create_bot_api_v1_app_gpt_creation_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppGPTBotCreationConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Create Bot
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/docs/migration-guide:
+    get:
+      operationId: index_api_v1_app_gpt_docs_migration_guide_get
+      responses:
+        '200':
+          content:
+            text/html:
+              schema:
+                type: string
+          description: Successful Response
+      summary: Index
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/dummy/event/bookings:
+    post:
+      description: 'Use this function to make a reservation for an event. Provide
+        the event''s title in `event_title` and describe
+
+        the details of the event in `event_details` by including date and time if
+        available, location, etc. Also provide
+
+        the user''s email address and full name in `user_email` and `user_name` respectively.
+
+
+        :param event_title: The title of the event.
+
+        :param event_details: Details of the event.
+
+        :param user_email: User''s email address.
+
+        :param user_name: User''s full name.
+
+        :return: Status of the reservation'
+      operationId: book_event
+      parameters:
+      - in: query
+        name: event_title
+        required: true
+        schema:
+          title: Event Title
+          type: string
+      - in: query
+        name: event_details
+        required: true
+        schema:
+          title: Event Details
+          type: string
+      - in: query
+        name: user_email
+        required: true
+        schema:
+          title: User Email
+          type: string
+      - in: query
+        name: user_name
+        required: true
+        schema:
+          title: User Name
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Book Event'
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/dummy/guard-rail/disallow-numbers:
+    post:
+      description: 'Use this function to ensure that the response does not contain
+        any numbers.
+
+
+        :param response: The response to be checked.
+
+        :return: The response, as is, if it does not contain any numbers, else None.'
+      operationId: DISALLOW_NUMBERS_IN_RESPONSE
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response-Input'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Response-Output'
+                - type: 'null'
+                title: Response Disallow Numbers In Response
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Disallow Numbers'
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/dummy/guard-rail/disallow-urls:
+    post:
+      description: 'Use this function to ensure that the response does not contain
+        any URLs.
+
+
+        :param response: The response to be checked.
+
+        :return: The response, as is, if it does not contain any URLs, else None.'
+      operationId: DISALLOW_URLS_IN_RESPONSE
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Response-Input'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/Response-Output'
+                - type: 'null'
+                title: Response Disallow Urls In Response
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: ' Disallow Urls'
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/legacy/migration/{bot_record_id}:
+    put:
+      operationId: migrate_from_sia_api_v1_app_gpt_legacy_migration__bot_record_id__put
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppGPTMigrationFeatures'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Migrate From Sia
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/message-agent:
+    post:
+      operationId: app_gpt_message_agent_api_v1_app_gpt_message_agent_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppGPTMessageAgentRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: App Gpt Message Agent
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/preprocessors/query/generative/normalization:
+    post:
+      operationId: generatively_normalize_query_api_v1_app_gpt_preprocessors_query_generative_normalization_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerativeQueryNormalizationPayload'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Generatively Normalize Query
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/publish/{bot_record_id}:
+    post:
+      operationId: publish_bot
+      parameters:
+      - in: path
+        name: bot_record_id
+        required: true
+        schema:
+          title: Bot Record Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Publish Bot
+      tags:
+      - app-gpt
+  /api/v1/app-gpt/web-qa/clone:
+    post:
+      operationId: clone_api_v1_app_gpt_web_qa_clone_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebQACloneConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Clone
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/delete:
+    delete:
+      operationId: web_qa_deletion_api_v1_app_gpt_web_qa_delete_delete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__endpoints__app_gpt_indexing__WebQADeletionConfig__1'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Web Qa Deletion
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexed-pages:
+    post:
+      operationId: get_all_indexed_pages_for_bot_id_api_v1_app_gpt_web_qa_indexed_pages_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BotIndexedRecordsRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get All Indexed Pages For Bot Id
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexed-records:
+    post:
+      operationId: get_indexed_url_records_for_bot_id__api_v1_app_gpt_web_qa_indexed_records_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebQAIndexedRecordsRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: 'Get Indexed Url Records For Bot Id '
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexing/crawler:
+    post:
+      operationId: index_multiple_pages_request_api_v1_app_gpt_web_qa_indexing_crawler_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IndexingCrawlerRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Index Multiple Pages Request
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexing/crawler/validate:
+    post:
+      operationId: validate_crawler_support_api_v1_app_gpt_web_qa_indexing_crawler_validate_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrawlerValidationRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Validate Crawler Support
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexing/deactivation/single-pages:
+    post:
+      operationId: index_single_pages_webqa_api_v1_app_gpt_web_qa_indexing_deactivation_single_pages_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/app__api__endpoints__app_gpt_indexing__WebQADeletionConfig__2'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Index Single Pages Webqa
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexing/document:
+    post:
+      operationId: index_document_web_qa_api_v1_app_gpt_web_qa_indexing_document_post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_index_document_web_qa_api_v1_app_gpt_web_qa_indexing_document_post'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Index Document Web Qa
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexing/excel:
+    post:
+      operationId: index_faq_excel_api_v1_app_gpt_web_qa_indexing_excel_post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_index_faq_excel_api_v1_app_gpt_web_qa_indexing_excel_post'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Index Faq Excel
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexing/extract-text-for-web-pages:
+    post:
+      operationId: extract_text_for_web_pages_api_v1_app_gpt_web_qa_indexing_extract_text_for_web_pages_post
+      parameters:
+      - in: query
+        name: request
+        required: true
+        schema:
+          title: Request
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Extract Text For Web Pages
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexing/get-embeds-for-web-pages:
+    post:
+      operationId: extract_embeds_and_text_for_web_pages_api_v1_app_gpt_web_qa_indexing_get_embeds_for_web_pages_post
+      parameters:
+      - in: query
+        name: request
+        required: true
+        schema:
+          title: Request
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Extract Embeds And Text For Web Pages
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexing/html:
+    post:
+      operationId: html_page_source_api_v1_app_gpt_web_qa_indexing_html_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebPageSourceRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Html Page Source
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexing/single-pages:
+    post:
+      operationId: index_single_pages_webqa_api_v1_app_gpt_web_qa_indexing_single_pages_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SinglePageIndexingConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Index Single Pages Webqa
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/indexing/text:
+    post:
+      operationId: index_text_web_qa_api_v1_app_gpt_web_qa_indexing_text_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IndexingTextConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Index Text Web Qa
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/info-by-trace-id:
+    get:
+      operationId: get_response_by_trace_id_api_v1_app_gpt_web_qa_info_by_trace_id_get
+      parameters:
+      - in: query
+        name: trace_id
+        required: true
+        schema:
+          title: Trace Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Response By Trace Id
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/update-data:
+    patch:
+      operationId: update_web_qa_api_v1_app_gpt_web_qa_update_data_patch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebQAUpdateConfig'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Update Web Qa
+      tags:
+      - app-gpt-indexing
+  /api/v1/app-gpt/web-qa/utils/extract-text-from-document:
+    post:
+      operationId: extract_text_from_document_api_v1_app_gpt_web_qa_utils_extract_text_from_document_post
+      parameters:
+      - in: query
+        name: request
+        required: true
+        schema:
+          title: Request
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Extract Text From Document
+      tags:
+      - app-gpt-indexing
+  /api/v1/cache/:
+    get:
+      description: Ping check endpoint.
+      operationId: ping_api_v1_cache__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                title: Response Ping Api V1 Cache  Get
+                type: object
+          description: Successful Response
+      summary: Ping
+      tags:
+      - cache
+  /api/v1/cache/clear-config-cache:
+    delete:
+      operationId: clear_config_cache_api_v1_cache_clear_config_cache_delete
+      parameters:
+      - in: header
+        name: ml-api-key
+        required: true
+        schema:
+          title: Ml-Api-Key
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Clear Config Cache
+      tags:
+      - cache
+  /api/v1/cache/clear-guard-rail-cache:
+    delete:
+      operationId: clear_config_cache_api_v1_cache_clear_guard_rail_cache_delete
+      parameters:
+      - in: header
+        name: ml-api-key
+        required: true
+        schema:
+          title: Ml-Api-Key
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Clear Config Cache
+      tags:
+      - cache
+  /api/v1/cache/flush:
+    delete:
+      operationId: flush_with_specific_pattern_api_v1_cache_flush_delete
+      parameters:
+      - in: header
+        name: ml-api-key
+        required: true
+        schema:
+          title: Ml-Api-Key
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlushPayload'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Flush With Specific Pattern
+      tags:
+      - cache
+  /api/v1/docubaat/ai-drive/file/{conversation_id}:
+    get:
+      operationId: get_presigned_url_using_id
+      parameters:
+      - in: path
+        name: conversation_id
+        required: true
+        schema:
+          title: Conversation Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Download File Using Conversation Id
+      tags:
+      - docubaat
+  /api/v1/docubaat/ai-drive/file/{conversation_id}/content:
+    get:
+      operationId: get_file_content_using_conversation_id
+      parameters:
+      - in: path
+        name: conversation_id
+        required: true
+        schema:
+          title: Conversation Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get File Content Using Conversation Id
+      tags:
+      - docubaat
+  /api/v1/health/:
+    get:
+      description: Health check endpoint.
+      operationId: health_api_v1_health__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                title: Response Health Api V1 Health  Get
+                type: object
+          description: Successful Response
+      summary: Health
+      tags:
+      - health
+  /api/v1/job_handler/track/job/{task_id}:
+    get:
+      operationId: get_job_status_api_v1_job_handler_track_job__task_id__get
+      parameters:
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          title: Task Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Job Status
+      tags:
+      - job_handler
+  /api/v1/ping/:
+    get:
+      description: Ping check endpoint.
+      operationId: ping_api_v1_ping__get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  type: string
+                title: Response Ping Api V1 Ping  Get
+                type: object
+          description: Successful Response
+      summary: Ping
+      tags:
+      - ping

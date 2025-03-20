@@ -1,0 +1,55 @@
+[
+    {
+        "servers": [
+            "https://1forge.com/forex-quotes",
+            "http://1forge.com/forex-quotes"
+        ],
+        "path": "/quotes",
+        "method": "get",
+        "summary": "Get quotes for all symbols",
+        "description": "Get quotes",
+        "headers": [],
+        "query_params": [],
+        "body": null,
+        "path_params": [],
+        "auth": {
+            "authType": "none"
+        },
+        "collection_name": "1Forge Finance APIs",
+        "response": {
+            "description": "A list of quotes"
+        }
+    },
+    {
+        "servers": [
+            "https://1forge.com/forex-quotes",
+            "http://1forge.com/forex-quotes"
+        ],
+        "path": "/symbols",
+        "method": "get",
+        "summary": "Get a list of symbols for which we provide real-time quotes",
+        "description": "Symbol List",
+        "headers": [],
+        "query_params": [],
+        "body": null,
+        "path_params": [],
+        "auth": {
+            "authType": "none"
+        },
+        "collection_name": "1Forge Finance APIs",
+        "response": {
+            "description": "A list of symbols",
+            "schema": {
+                "example": [
+                    "EURUSD",
+                    "GBPJPY",
+                    "AUDUSD"
+                ],
+                "items": {
+                    "type": "string"
+                },
+                "type": "array"
+            }
+        }
+    }
+]

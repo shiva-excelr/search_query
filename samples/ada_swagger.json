@@ -1,0 +1,30 @@
+{
+  'user_request': '1. create iso visa 87 request\n2. run visa iso 87 spec request\n3. display the results',
+  'tasks': [
+    {
+      'stepId': 1,
+      'original': 'create iso visa 87 request',
+      'interpretation': '**Step Description: Exception Handling for Request Creation Failure**  \nAn error occurred during the request creation process, indicating that a string object was incorrectly accessed as if it were a dictionary. The specific error message is: "Failed to create request: \'str\' object has no attribute \'get\'." This suggests a type mismatch in the data being processed, necessitating a review of the input parameters to ensure they are in the expected format.',
+      'result': '\n            <div style="font-size: 12px; line-height: 1.4; color: red;">\n                <p><strong>Error:</strong> Failed to create request: \'str\' object has no attribute \'get\'</p>\n            </div>\n        ',
+      'status': 'failed'
+    },
+    {
+      'stepId': 2,
+      'original': 'run visa iso 87 spec request',
+      'interpretation': '',
+      'result': '',
+      'status': 'pending'
+    },
+    {
+      'stepId': 3,
+      'original': 'display the results',
+      'interpretation': '',
+      'result': '',
+      'status': 'pending'
+    }
+  ],
+  'total': 3,
+  'completed': 1,
+  'pending': 2,
+  'waitingForUserInput': False
+}

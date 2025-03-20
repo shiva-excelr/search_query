@@ -1,0 +1,30 @@
+{
+  'user_request': '1. create iso visa 87 request\n2. run visa iso 87 spec request\n3. display the results',
+  'tasks': [
+    {
+      'stepId': 1,
+      'original': 'create iso visa 87 request',
+      'interpretation': '',
+      'result': '',
+      'status': 'pending'
+    },
+    {
+      'stepId': 2,
+      'original': 'run visa iso 87 spec request',
+      'interpretation': '',
+      'result': '',
+      'status': 'pending'
+    },
+    {
+      'stepId': 3,
+      'original': 'display the results',
+      'interpretation': '',
+      'result': '',
+      'status': 'pending'
+    }
+  ],
+  'total': 3,
+  'completed': 0,
+  'pending': 3,
+  'waitingForUserInput': False
+}
