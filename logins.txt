@@ -1,0 +1,21 @@
+LOGINS  Username: Manikanta.siva@skitron.com
+Password: M@n1k@nt@$1v@
+
+Prutan login 1:
+Username: Manikanta.siva@skitron.com
+Password:Python@3102
+
+
+Prutan login 2:
+Username: python.developer.manikanta@gmail.com
+Password:Python@3102
+
+Hostinger login:
+Username: Manikanta.siva@skitron.com
+Password:Python@3102
+
+
+Postman login Username: Manikanta.siva@skitron.com
+Password:Python@3102
+
+

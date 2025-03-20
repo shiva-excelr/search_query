@@ -37,7 +37,7 @@ class QdrantVectorStore:
 
         self.query = query
 
-        self.client = QdrantClient(url="http://localhost:6333", timeout=3000)
+        self.client = QdrantClient(url="http://localhost:6333")
 
 
         self.embeddings=ollama_ef
@@ -78,6 +78,18 @@ class QdrantVectorStore:
 
 
         self.data = get_all_transactions() if not self.query else  get_all_transactions(self.query)
+
+    def retrive_record(self, guids=None):
+
+        if guids is None:
+            guids = []
+
+        results = self.client.retrieve(
+            collection_name=self.collection_name,
+            ids=guids)
+
+        return results
+
 
     def formatted_json_str(self, json_str, default=False):
         try:
@@ -191,7 +203,7 @@ class QdrantVectorStore:
         if update_points is None:
             update_points = []
         for point in update_points:
-            self.client.set_payload(collection_name=self.collection_name,payload=point['payload'], points=[point['guid']])
+            self.client.set_payload(collection_name=self.collection_name,payload=point['payload'], points=[point['id']])
 
 
 
@@ -389,7 +401,8 @@ class QdrantVectorStore:
             final_results.append({
                 "guid": hit.payload.get("guid"),
                 "score": hit.score,
-                "id": hit.id}
+                "id": hit.id,
+            "payload":hit.payload}
                 )
 
         return final_results
@@ -597,16 +610,16 @@ if __name__ == "__main__":
     # qdrant = QdrantVectorStore(collection_name='raw_data_search')
     # qdrant = QdrantVectorStore()
     # qdrant = QdrantVectorStore(collection_name='update_points')
-    print(QdrantVectorStore().client.get_collections())
+    # print(QdrantVectorStore().client.get_collections())
 
     # QdrantVectorStore().client.delete_collection("marketplace_HYBRID")
 
 
-    qdrant = QdrantVectorStore(collection_name='marketplace_HYBRID',query="SELECT * FROM marketplace",embedding_dimension=768,hybrid=True)
+    qdrant = QdrantVectorStore(collection_name='marketplace_HYBRID',query="SELECT * FROM prutanmarketplacerequest",embedding_dimension=768,hybrid=True)
 
     # qdrant.delete_collection()
     # qdrant.add_vectors_v2()
-    # qdrant.add_vectors_hybrid()
+    qdrant.add_vectors_hybrid()
     # qdrant.update_points()
 
     # qdrant.search_vector("Cennox Chain Leeds GB and 1651412110")
@@ -617,8 +630,15 @@ if __name__ == "__main__":
 
     # print(qdrant.search_vector_hybrid("create requests for auth request visa of 50 times"))
 
-    print(qdrant.search_vector_hybrid("please create request to terminate for visa"))
+    # print(qdrant.search_vector_hybrid("please create request to terminate for visa"))
 
+    # print(qdrant.search_vector_hybrid("create request for add merchant 0305"))
+
+    # record = qdrant.retrive_record(guids = [1])
+    record = qdrant.search_vector_hybrid("create requests for auth request visa of 50 times")
+    first_record = record[0]
+    first_record['payload']['resolved_request'] = "<isomsg>\r\n  <field id=\"0\" value=\"0100\"/>\r\n  <field id=\"2\" value=\"5891882083346507999\"/>\r\n  <field id=\"3\" value=\"300000\"/>\r\n  <field id=\"4\" value=\"8400000000010000\"/>\r\n  <field id=\"7\" value=\"0235111538\"/>\r\n  <field id=\"11\" value=\"634893155705\"/>\r\n  <field id=\"12\" value=\"250235111538\"/>\r\n  <field id=\"13\" value=\"2502\"/>\r\n  <field id=\"14\" value=\"2502\"/>\r\n  <field id=\"21\" value=\"H123456789012345678900\"/>\r\n  <field id=\"22\" value=\"858468473474967\"/>\r\n  <field id=\"23\" value=\"682\"/>\r\n  <field id=\"24\" value=\"113\"/>\r\n  <field id=\"26\" value=\"0743\"/>\r\n  <field id=\"35\" value=\"5891882083346507999=25029994690401174\"/>\r\n  <field id=\"41\" value=\"HQd95NXxku9a3RNL\"/>\r\n  <field id=\"42\" value=\"dasDM940EdotYwRNyJZj9OuJeG2OmxL9AlZ\"/>\r\n  <field id=\"45\" value=\"ZAuO8f6FnZ1Nff6mdrKREFkk0dY4c7Ttqm9mkg2R9tiW3m3TN4Q0Hiw1BWm9aUZ4OVXMsVhqXpAU\"/>\r\n  <field id=\"49\" value=\"\"/>\r\n</isomsg>\r\n"
+    print(qdrant.update_points([first_record]))
 
 
 
